@@ -1,13 +1,886 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" style="background:#000000;color-scheme:dark;">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Allocé</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allocé — Every dollar has a job.</title>
+  <meta name="description" content="Allocé gives every dollar a job — bills, savings, spending, and investing, all in one place." />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #000000;
+      --bg2:     #050505;
+      --surface: #0C0C0C;
+      --s2:      #111111;
+      --s3:      #181818;
+      --border:  rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.13);
+
+      --white:   #FFFFFF;
+      --off:     #E8E8E8;
+      --mid:     #888890;
+      --dim:     #444450;
+
+      --green:   #3DD68C;
+      --green-g: rgba(61,214,140,0.15);
+      --blue:    #5B9CF6;
+      --orange:  #F97316;
+      --teal:    #2DD4BF;
+      --purple:  #A78BFA;
+
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #000000 !important;
+      background-color: #000000 !important;
+      color: #ffffff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── GRAIN ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+    }
+
+    /* ── GRID LINES (subtle background) ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+    }
+
+    /* ── GLOW ── */
+    .glow-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(160px); pointer-events: none; z-index: 0;
+    }
+    .g1 {
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse, rgba(61,214,140,0.09) 0%, transparent 70%);
+      top: -100px; left: -200px;
+      animation: orbDrift 22s ease-in-out infinite alternate;
+    }
+    .g2 {
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(91,156,246,0.07) 0%, transparent 70%);
+      bottom: 20%; right: -100px;
+      animation: orbDrift 28s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes orbDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      animation: navIn 0.6s ease both;
+    }
+    @keyframes navIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      font-size: 1.25rem; font-weight: 700;
+      letter-spacing: -0.03em; color: var(--white);
+    }
+    .logo em { color: var(--green); font-style: normal; }
+
+    .nav-mid { display: flex; gap: 32px; list-style: none; }
+    .nav-mid a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--mid); text-decoration: none;
+      transition: color 0.18s;
+    }
+    .nav-mid a:hover { color: var(--white); }
+
+    .nav-cta {
+      font-size: 0.875rem; font-weight: 600;
+      padding: 9px 22px; border-radius: 8px;
+      background: var(--green); color: var(--bg);
+      text-decoration: none; letter-spacing: -0.01em;
+      transition: opacity 0.18s, transform 0.15s;
+      box-shadow: 0 0 20px rgba(61,214,140,0.3);
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 2;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 40px 60px;
+    }
+
+    .hero-inner {
+      max-width: 1100px; width: 100%;
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 60px; align-items: center;
+    }
+
+    .hero-left { }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green);
+      border: 1px solid rgba(61,214,140,0.25);
+      padding: 6px 14px; border-radius: 6px;
+      margin-bottom: 32px;
+      animation: up 0.7s 0.1s ease both;
+    }
+    .tag-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); animation: blink 2s ease infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+
+    .hero-h1 {
+      font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+      font-weight: 700; line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      animation: up 0.7s 0.2s ease both;
+    }
+    .hero-h1 .g { color: var(--green); }
+    .hero-h1 .d { color: var(--mid); font-weight: 300; font-style: italic; }
+
+    .hero-p {
+      margin-top: 28px;
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--mid); line-height: 1.75;
+      max-width: 460px;
+      animation: up 0.7s 0.3s ease both;
+    }
+
+    .hero-actions {
+      margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap;
+      animation: up 0.7s 0.4s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+      padding: 14px 28px; border-radius: 8px;
+      background: var(--green); color: var(--bg);
+      border: none; cursor: pointer; text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: opacity 0.18s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(61,214,140,0.35);
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(61,214,140,0.45); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+      padding: 14px 28px; border-radius: 8px;
+      background: transparent; color: var(--white);
+      border: 1px solid var(--border2); text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: background 0.18s, transform 0.15s;
+    }
+    .btn-ghost:hover { background: var(--surface); transform: translateY(-2px); }
+
+    .hero-stats {
+      margin-top: 52px; display: flex; gap: 36px;
+      animation: up 0.7s 0.5s ease both;
+    }
+    .hero-stat-num {
+      font-family: var(--mono); font-size: 1.5rem; font-weight: 500;
+      color: var(--white); letter-spacing: -0.02em;
+    }
+    .hero-stat-num span { color: var(--green); }
+    .hero-stat-label { font-size: 0.78rem; color: var(--mid); margin-top: 3px; }
+    .stat-sep { width: 1px; background: var(--border2); align-self: stretch; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── PHONE ── */
+    .hero-right {
+      display: flex; justify-content: center;
+      animation: up 0.8s 0.45s ease both;
+    }
+
+    .phone {
+      width: 268px;
+      background: var(--surface);
+      border-radius: 40px;
+      border: 1px solid var(--border2);
+      padding: 12px 10px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 60px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(61,214,140,0.06);
+      position: relative;
+    }
+
+    /* green line top accent */
+    .phone::before {
+      content: '';
+      position: absolute; top: -1px; left: 40px; right: 40px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      border-radius: 2px;
+    }
+
+    .notch {
+      width: 80px; height: 26px;
+      background: var(--bg); border-radius: 0 0 18px 18px;
+      margin: 0 auto 10px;
+    }
+
+    .pscreen {
+      background: var(--bg); border-radius: 28px;
+      padding: 16px 13px 13px; overflow: hidden;
+    }
+
+    /* top bar */
+    .ptop {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .plogo { font-size: 0.9rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
+    .plogo em { color: var(--green); font-style: normal; }
+    .picons { display: flex; gap: 5px; }
+    .picon {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--s2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; color: var(--dim);
+    }
+
+    /* balance hero card */
+    .pcard {
+      background: var(--s2); border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 13px; margin-bottom: 10px;
+      position: relative; overflow: hidden;
+    }
+    .pcard::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg, var(--green), var(--teal));
+    }
+    .pcard-label {
+      font-size: 0.55rem; font-weight: 600; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
+    }
+    .pcard-amt {
+      font-family: var(--mono); font-size: 1.45rem; font-weight: 500;
+      color: var(--white); letter-spacing: -0.02em;
+    }
+    .pcard-amt em { color: var(--green); font-style: normal; }
+    .pcard-period {
+      font-size: 0.55rem; color: var(--dim); margin-top: 5px; font-weight: 500;
+    }
+
+    /* bucket grid */
+    .pgrid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7px; margin-bottom: 10px;
+    }
+    .pbucket {
+      background: var(--s2); border: 1px solid var(--border);
+      border-radius: 11px; padding: 9px 9px 8px;
+      position: relative; overflow: hidden;
+    }
+    .pbucket::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px;
+    }
+    .pb-icon { font-size: 0.8rem; margin-bottom: 3px; }
+    .pb-name {
+      font-size: 0.5rem; font-weight: 600; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;
+    }
+    .pb-amt {
+      font-family: var(--mono); font-size: 0.74rem; font-weight: 500;
+    }
+    .pb-pct { font-size: 0.48rem; font-weight: 600; color: var(--dim); margin-top: 1px; }
+
+    /* bottom nav */
+    .pnav {
+      display: flex; justify-content: space-around;
+      background: var(--s2); border-radius: 12px;
+      padding: 7px 4px; border: 1px solid var(--border);
+    }
+    .pnav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+      font-size: 0.46rem; font-weight: 600;
+      color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .pnav-item.on { color: var(--green); }
+    .pnav-pip { width: 3px; height: 3px; border-radius: 50%; background: var(--green); margin-top: 1px; }
+
+    /* ── SECTION SHARED ── */
+    .section {
+      position: relative; z-index: 2;
+      max-width: 1100px; margin: 0 auto;
+      padding: 100px 40px;
+    }
+
+    .s-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 16px;
+    }
+    .s-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--white); line-height: 1.0;
+      margin-bottom: 56px;
+    }
+    .s-title .d { color: var(--mid); font-weight: 300; font-style: italic; }
+
+    /* ── FEATURES ── */
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    }
+
+    .feat {
+      background: var(--bg2); padding: 36px 30px;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .feat:hover { background: var(--surface); }
+
+    .feat-num {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+      color: var(--dim); margin-bottom: 20px; letter-spacing: 0.06em;
+    }
+    .feat-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; margin-bottom: 16px;
+    }
+    .feat-name {
+      font-size: 1rem; font-weight: 600; letter-spacing: -0.02em;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .feat-desc { font-size: 0.875rem; color: var(--mid); line-height: 1.65; }
+
+    .feat-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .feat:hover .feat-accent { opacity: 1; }
+
+    /* ── HOW ── */
+    .how-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .how-left { }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-n {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      color: var(--green); padding-top: 2px; flex-shrink: 0; min-width: 24px;
+    }
+    .step-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 5px; letter-spacing: -0.01em; }
+    .step-desc  { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
+
+    .how-right {
+      position: sticky; top: 80px;
+    }
+
+    /* allocation visual */
+    .alloc-visual {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+    }
+    .alloc-title {
+      font-size: 0.72rem; font-weight: 600; color: var(--mid);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;
+    }
+    .alloc-total {
+      font-family: var(--mono); font-size: 2rem; font-weight: 500;
+      color: var(--white); letter-spacing: -0.03em; margin-bottom: 24px;
+    }
+    .alloc-total span { color: var(--green); }
+
+    .alloc-row {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .alloc-row:last-child { margin-bottom: 0; }
+    .ar-label { font-size: 0.78rem; font-weight: 600; color: var(--off); min-width: 68px; }
+    .ar-bar-wrap {
+      flex: 1; height: 6px; background: var(--s3); border-radius: 3px; overflow: hidden;
+    }
+    .ar-bar { height: 100%; border-radius: 3px; animation: grow 1.2s ease both; }
+    @keyframes grow { from { width: 0 !important; } }
+    .ar-amt { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--white); min-width: 52px; text-align: right; }
+
+    /* ── CTA ── */
+    .cta-section {
+      position: relative; z-index: 2;
+      padding: 0 40px 120px;
+    }
+    .cta-box {
+      max-width: 1100px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 20px; padding: 72px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 60px; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--green) 40%, transparent 100%);
+    }
+    .cta-box::after {
+      content: '';
+      position: absolute; top: -120px; left: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,214,140,0.07), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-left { position: relative; z-index: 1; }
+    .cta-h {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--white); line-height: 1.05; margin-bottom: 12px;
+    }
+    .cta-h .g { color: var(--green); }
+    .cta-p { font-size: 0.95rem; color: var(--mid); line-height: 1.6; max-width: 380px; }
+
+    .cta-right { flex-shrink: 0; position: relative; z-index: 1; min-width: 340px; }
+    .email-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .email-field {
+      display: flex; gap: 10px;
+    }
+    .email-input {
+      flex: 1; font-family: var(--font);
+      font-size: 0.9rem; font-weight: 500;
+      padding: 13px 18px; border-radius: 8px;
+      background: var(--bg2); border: 1px solid var(--border2);
+      color: var(--white); outline: none;
+      transition: border-color 0.18s;
+    }
+    .email-input::placeholder { color: var(--dim); }
+    .email-input:focus { border-color: rgba(61,214,140,0.4); }
+    .email-btn {
+      font-family: var(--font); font-size: 0.9rem; font-weight: 600;
+      padding: 13px 22px; border-radius: 8px;
+      background: var(--green); color: var(--bg);
+      border: none; cursor: pointer; white-space: nowrap;
+      letter-spacing: -0.01em;
+      transition: opacity 0.18s, transform 0.15s;
+    }
+    .email-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .email-note { font-size: 0.75rem; color: var(--dim); }
+    .email-success {
+      display: none; font-size: 0.9rem; font-weight: 600;
+      color: var(--green);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 2;
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .f-logo { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
+    .f-logo em { color: var(--green); font-style: normal; }
+    .f-links { display: flex; gap: 28px; }
+    .f-links a { font-size: 0.82rem; color: var(--mid); text-decoration: none; transition: color 0.18s; }
+    .f-links a:hover { color: var(--white); }
+    .f-copy { font-size: 0.75rem; color: var(--dim); width: 100%; }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .r.in { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .how-right { display: none; }
+      .cta-box { flex-direction: column; padding: 40px 28px; }
+      .cta-right { min-width: unset; width: 100%; }
+      .email-field { flex-direction: column; }
+      .email-btn { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-mid { display: none; }
+      .section { padding: 70px 20px; }
+      .cta-section { padding: 0 20px 80px; }
+      footer { padding: 24px 20px; }
+      .hero { padding: 90px 20px 40px; }
+      .hero-stats { gap: 20px; flex-wrap: wrap; }
+    }
+  </style>
+
+  <style>html,body{background:#000!important;background-color:#000!important;color:#fff!important}</style>
+
 </head>
-<body>
-  <h1>Allocé</h1>
-  <p><a href="/terms">Terms of Service</a></p>
-  <p><a href="/privacy">Privacy Policy</a></p>
+<body bgcolor="#000000" style="background:#000000 !important;background-color:#000000 !important;color:#ffffff !important;">
+
+  <div class="glow-orb g1"></div>
+  <div class="glow-orb g2"></div>
+
+  <!-- NAV -->
+
+  <nav>
+    <div class="logo">Alloc<em>é</em></div>
+    <ul class="nav-mid">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+    <a href="#notify" class="nav-cta">Get early access</a>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag"><span class="tag-dot"></span> Coming to iOS</div>
+
+```
+    <h1 class="hero-h1">
+      Every<br>
+      <span class="g">dollar</span><br>
+      <span class="d">has a job.</span>
+    </h1>
+
+    <p class="hero-p">
+      Stop wondering where your money went. Allocé splits every paycheck across bills, savings, spending, and investing — automatically.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#notify" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notify me at launch
+      </a>
+      <a href="#features" class="btn-ghost">
+        See how it works
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num"><span>5</span> screens</div>
+        <div class="hero-stat-label">Bills · Savings · Spending · Investing · Home</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div>
+        <div class="hero-stat-num"><span>$0</span> free</div>
+        <div class="hero-stat-label">Core budgeting, always free</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div>
+        <div class="hero-stat-num"><span>1</span> minute</div>
+        <div class="hero-stat-label">To set up your first paycheck split</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUP -->
+  <div class="hero-right">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="pscreen">
+        <div class="ptop">
+          <div class="plogo">Alloc<em>é</em></div>
+          <div class="picons">
+            <div class="picon">◐</div>
+            <div class="picon">⚙</div>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <div class="pcard-label">Paycheck allocated</div>
+          <div class="pcard-amt">$<em>4,250</em>.00</div>
+          <div class="pcard-period">May 1 – May 15 · 2026</div>
+        </div>
+
+        <div class="pgrid">
+          <div class="pbucket">
+            <div class="pbucket::after" style="background:var(--blue)"></div>
+            <div class="pb-icon">📋</div>
+            <div class="pb-name">Bills</div>
+            <div class="pb-amt" style="color:var(--blue)">$1,840</div>
+            <div class="pb-pct">43%</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--blue)"></div>
+          </div>
+          <div class="pbucket">
+            <div class="pb-icon">🎯</div>
+            <div class="pb-name">Savings</div>
+            <div class="pb-amt" style="color:var(--green)">$840</div>
+            <div class="pb-pct">20%</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--green)"></div>
+          </div>
+          <div class="pbucket">
+            <div class="pb-icon">💳</div>
+            <div class="pb-name">Spending</div>
+            <div class="pb-amt" style="color:var(--orange)">$970</div>
+            <div class="pb-pct">23%</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--orange)"></div>
+          </div>
+          <div class="pbucket">
+            <div class="pb-icon">📈</div>
+            <div class="pb-name">Investing</div>
+            <div class="pb-amt" style="color:var(--teal)">$600</div>
+            <div class="pb-pct">14%</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--teal)"></div>
+          </div>
+        </div>
+
+        <div class="pnav">
+          <div class="pnav-item on"><span>⌂</span>Home<div class="pnav-pip"></div></div>
+          <div class="pnav-item"><span>📋</span>Bills</div>
+          <div class="pnav-item"><span>🎯</span>Save</div>
+          <div class="pnav-item"><span>💳</span>Spend</div>
+          <div class="pnav-item"><span>📈</span>Invest</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- FEATURES -->
+
+  <section class="section" id="features">
+    <div class="r">
+      <div class="s-eyebrow">What's inside</div>
+      <h2 class="s-title">Five screens.<br><span class="d">One clear picture.</span></h2>
+    </div>
+
+```
+<div class="feat-grid r" style="transition-delay:0.1s">
+  <div class="feat">
+    <div class="feat-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+    <div class="feat-num">01</div>
+    <div class="feat-icon" style="background:rgba(61,214,140,0.1)">🏦</div>
+    <div class="feat-name">Home</div>
+    <div class="feat-desc">Your financial command center. Every dollar allocated at a glance — paycheck split, what's spent, what's left.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-accent" style="background:linear-gradient(90deg,var(--blue),transparent)"></div>
+    <div class="feat-num">02</div>
+    <div class="feat-icon" style="background:rgba(91,156,246,0.1)">📋</div>
+    <div class="feat-name">Bills</div>
+    <div class="feat-desc">Track every recurring bill, due date, and payment status. Know exactly which bills fall in each pay period.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+    <div class="feat-num">03</div>
+    <div class="feat-icon" style="background:rgba(61,214,140,0.1)">🎯</div>
+    <div class="feat-name">Savings</div>
+    <div class="feat-desc">Goal-based saving. Emergency fund, vacation, down payment — set a target and watch it grow paycheck by paycheck.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-accent" style="background:linear-gradient(90deg,var(--orange),transparent)"></div>
+    <div class="feat-num">04</div>
+    <div class="feat-icon" style="background:rgba(249,115,22,0.1)">💳</div>
+    <div class="feat-name">Spending</div>
+    <div class="feat-desc">A guilt-free envelope for daily spending. Know what you have before you swipe — category by category.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-accent" style="background:linear-gradient(90deg,var(--teal),transparent)"></div>
+    <div class="feat-num">05</div>
+    <div class="feat-icon" style="background:rgba(45,212,191,0.1)">📈</div>
+    <div class="feat-name">Investing</div>
+    <div class="feat-desc">Allocate a slice of every paycheck toward your portfolio. Build wealth one pay period at a time.</div>
+  </div>
+  <div class="feat" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--bg)">
+    <div style="font-size:2rem;margin-bottom:12px">💼</div>
+    <div style="font-size:0.875rem;color:var(--mid);line-height:1.6;max-width:200px">Built for people who want a real system, not just a tracker.</div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- HOW IT WORKS -->
+
+  <section class="section" id="how" style="padding-top:0">
+    <div class="r">
+      <div class="s-eyebrow">How it works</div>
+      <h2 class="s-title">Up and running<br><span class="d">in minutes.</span></h2>
+    </div>
+
+```
+<div class="how-grid">
+  <div class="how-left">
+    <div class="steps">
+      <div class="step r" style="transition-delay:0.05s">
+        <div class="step-n">01</div>
+        <div>
+          <div class="step-title">Enter your income</div>
+          <div class="step-desc">Tell Allocé your pay amount and schedule. One-time setup that takes under a minute.</div>
+        </div>
+      </div>
+      <div class="step r" style="transition-delay:0.1s">
+        <div class="step-n">02</div>
+        <div>
+          <div class="step-title">Set your allocation rules</div>
+          <div class="step-desc">Choose how much flows to bills, savings, spending, and investing. Allocé suggests a smart split based on your situation.</div>
+        </div>
+      </div>
+      <div class="step r" style="transition-delay:0.15s">
+        <div class="step-n">03</div>
+        <div>
+          <div class="step-title">Log and track</div>
+          <div class="step-desc">As you spend and pay bills, each transaction updates your buckets in real time. Nothing slips through the cracks.</div>
+        </div>
+      </div>
+      <div class="step r" style="transition-delay:0.2s">
+        <div class="step-n">04</div>
+        <div>
+          <div class="step-title">Build real financial habits</div>
+          <div class="step-desc">Month over month you'll see the progress. Allocé grows with your goals — and celebrates every milestone.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-right r" style="transition-delay:0.1s">
+    <div class="alloc-visual">
+      <div class="alloc-title">Paycheck breakdown</div>
+      <div class="alloc-total">$<span>4,250</span>.00</div>
+
+      <div class="alloc-row">
+        <div class="ar-label">Bills</div>
+        <div class="ar-bar-wrap"><div class="ar-bar" style="width:72%;background:var(--blue)"></div></div>
+        <div class="ar-amt" style="color:var(--blue)">$1,840</div>
+      </div>
+      <div class="alloc-row">
+        <div class="ar-label">Savings</div>
+        <div class="ar-bar-wrap"><div class="ar-bar" style="width:40%;background:var(--green)"></div></div>
+        <div class="ar-amt" style="color:var(--green)">$840</div>
+      </div>
+      <div class="alloc-row">
+        <div class="ar-label">Spending</div>
+        <div class="ar-bar-wrap"><div class="ar-bar" style="width:48%;background:var(--orange)"></div></div>
+        <div class="ar-amt" style="color:var(--orange)">$970</div>
+      </div>
+      <div class="alloc-row">
+        <div class="ar-label">Investing</div>
+        <div class="ar-bar-wrap"><div class="ar-bar" style="width:28%;background:var(--teal)"></div></div>
+        <div class="ar-amt" style="color:var(--teal)">$600</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- CTA -->
+
+  <div class="cta-section" id="notify">
+    <div class="cta-box r">
+      <div class="cta-left">
+        <h2 class="cta-h">Be first when<br>Alloc<span class="g">é</span> launches.</h2>
+        <p class="cta-p">Join the early access list. One email when it's live on the App Store — that's it.</p>
+      </div>
+      <div class="cta-right">
+        <div class="email-wrap">
+          <div class="email-field">
+            <input type="email" class="email-input" placeholder="your@email.com" id="emailInput" autocomplete="email" />
+            <button class="email-btn" onclick="signup()">Notify me</button>
+          </div>
+          <div class="email-success" id="successMsg">✓ You're on the list — see you at launch!</div>
+          <div class="email-note">No spam. Just one email when we ship.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <div class="f-logo">Alloc<em>é</em></div>
+    <div class="f-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="mailto:support@alloce.app">Support</a>
+    </div>
+    <div class="f-copy">© 2026 Allocé. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+    // Email
+    function signup() {
+      const inp = document.getElementById('emailInput');
+      const msg = document.getElementById('successMsg');
+      const v   = inp.value.trim();
+      if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+        inp.style.borderColor = 'rgba(249,115,22,0.6)';
+        setTimeout(() => inp.style.borderColor = '', 1400);
+        return;
+      }
+      // TODO: POST to Supabase
+      console.log('signup:', v);
+      inp.closest('.email-field').style.display = 'none';
+      msg.style.display = 'block';
+    }
+    document.getElementById('emailInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') signup();
+    });
+  </script>
+
 </body>
 </html>
