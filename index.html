@@ -569,6 +569,7 @@
 
   <style>html,body{background:#000!important;background-color:#000!important;color:#fff!important}</style>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body bgcolor="#000000" style="background:#000000 !important;background-color:#000000 !important;color:#ffffff !important;">
 
@@ -872,14 +873,11 @@
 </footer>
 
   <script>
-    // ─────────────────────────────────────────────────────────────────
-    //  SUPABASE CONFIG
-    //  Supabase Dashboard → Project Settings → API
-    // ─────────────────────────────────────────────────────────────────
-    const SUPABASE_URL   = 'https://vikmfjzbqvkymtaffhvk.supabase.co'; // e.g. https://abc123.supabase.co
-    const SUPABASE_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpa21manpicXZreW10YWZmaHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTI1MjcsImV4cCI6MjA5MzQ2ODUyN30.4x4TRfisM8xINcrzLcn6_00rxfVBHQzQ3Ha1dXyI9Ho';    // starts with "eyJ..."
-    const WAITLIST_TABLE = 'waitlist';
-    // ─────────────────────────────────────────────────────────────────
+    // Supabase client
+    const _sb = window.supabase.createClient(
+      'https://vikmfjzbqvkymtaffhvk.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpa21manpicXZreW10YWZmaHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTI1MjcsImV4cCI6MjA5MzQ2ODUyN30.4x4TRfisM8xINcrzLcn6_00rxfVBHQzQ3Ha1dXyI9Ho'
+    );
 
         // Scroll reveal
     const io = new IntersectionObserver(entries => {
@@ -901,21 +899,12 @@
       btn.disabled = true;
       btn.textContent = 'Saving...';
       try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/${WAITLIST_TABLE}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`,
-            'Prefer': 'return=minimal',
-            'X-Client-Info': 'supabase-js/2.0.0'
-          },
-          body: JSON.stringify({ email: v })
-        });
-        if (!res.ok && res.status !== 409) throw new Error('failed');
+        const { error } = await _sb.from('waitlist').insert({ email: v });
+        if (error && error.code !== '23505') throw error;
         inp.closest('.email-field').style.display = 'none';
         msg.style.display = 'block';
       } catch(err) {
+        console.error('Supabase error:', err);
         btn.disabled = false;
         btn.textContent = 'Notify me';
         inp.style.borderColor = 'rgba(249,115,22,0.6)';
