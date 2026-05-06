@@ -893,7 +893,7 @@
       const inp = document.getElementById('emailInput');
       const msg = document.getElementById('successMsg');
       const v   = inp.value.trim();
-      if (!v || !/^[^\@]+@[^\@]+\\.[^\@]+$/.test(v)) {
+      if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
         inp.style.borderColor = 'rgba(249,115,22,0.6)';
         setTimeout(() => inp.style.borderColor = '', 1400);
         return;
