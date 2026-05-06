@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Allocé — Every dollar has a job.</title>
-  <meta name="description" content="Allocé gives every dollar a job — bills, savings, spending, and investing, all in one place." />
+  <title>Allocé  Every dollar has a job.</title>
+  <meta name="description" content="Allocé gives every dollar a job  bills, savings, spending, and investing, all in one place." />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── GRAIN ── */
+    /* ─ GRAIN  */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 1;
@@ -62,7 +62,7 @@
       opacity: 0.035;
     }
 
-    /* ── GRID LINES (subtle background) ── */
+    /* ─ GRID LINES (subtle background)  */
     body::after {
       content: '';
       position: fixed; inset: 0; z-index: 0;
@@ -74,7 +74,7 @@
       mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
     }
 
-    /* ── GLOW ── */
+    /* ─ GLOW  */
     .glow-orb {
       position: fixed; border-radius: 50%;
       filter: blur(160px); pointer-events: none; z-index: 0;
@@ -96,7 +96,7 @@
       to   { transform: translate(30px, 40px) scale(1.1); }
     }
 
-    /* ── NAV ── */
+    /* ─ NAV  */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -134,7 +134,7 @@
     }
     .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 
-    /* ── HERO ── */
+    /* ─ HERO  */
     .hero {
       position: relative; z-index: 2;
       min-height: 100vh;
@@ -230,7 +230,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── PHONE ── */
+    /* ─ PHONE  */
     .hero-right {
       display: flex; justify-content: center;
       animation: up 0.8s 0.45s ease both;
@@ -346,7 +346,7 @@
     .pnav-item.on { color: var(--green); }
     .pnav-pip { width: 3px; height: 3px; border-radius: 50%; background: var(--green); margin-top: 1px; }
 
-    /* ── SECTION SHARED ── */
+    /* ─ SECTION SHARED  */
     .section {
       position: relative; z-index: 2;
       max-width: 1100px; margin: 0 auto;
@@ -366,7 +366,7 @@
     }
     .s-title .d { color: var(--mid); font-weight: 300; font-style: italic; }
 
-    /* ── FEATURES ── */
+    /* ─ FEATURES  */
     .feat-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1px; background: var(--border);
@@ -401,7 +401,7 @@
     }
     .feat:hover .feat-accent { opacity: 1; }
 
-    /* ── HOW ── */
+    /* ─ HOW  */
     .how-grid {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 60px; align-items: start;
@@ -453,7 +453,7 @@
     @keyframes grow { from { width: 0 !important; } }
     .ar-amt { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--white); min-width: 52px; text-align: right; }
 
-    /* ── CTA ── */
+    /* ─ CTA  */
     .cta-section {
       position: relative; z-index: 2;
       padding: 0 40px 120px;
@@ -517,7 +517,7 @@
       color: var(--green);
     }
 
-    /* ── FOOTER ── */
+    /* ─ FOOTER  */
     footer {
       position: relative; z-index: 2;
       border-top: 1px solid var(--border);
@@ -540,11 +540,11 @@
   transition: color 0.18s, border-color 0.18s, background 0.18s;
 }
 .f-socials a:hover { color: #ffffff; border-color: #3DD68C; background: rgba(61,214,140,0.06); }
-    /* ── REVEAL ── */
+    /* ─ REVEAL  */
     .r { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .r.in { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
+    /* ─ RESPONSIVE  */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; }
       .hero-right { display: none; }
@@ -603,7 +603,7 @@
     </h1>
 
     <p class="hero-p">
-      Stop wondering where your money went. Allocé splits every paycheck across bills, savings, spending, and investing — automatically.
+      Stop wondering where your money went. Allocé splits every paycheck across bills, savings, spending, and investing  automatically.
     </p>
 
     <div class="hero-actions">
@@ -651,27 +651,27 @@
         <div class="pcard">
           <div class="pcard-label">Paycheck allocated</div>
           <div class="pcard-amt">$<em>4,250</em>.00</div>
-          <div class="pcard-period">May 1 – May 15 · 2026</div>
+          <div class="pcard-period">May 1  May 15 · 2026</div>
         </div>
 
         <div class="pgrid">
           <div class="pbucket">
             <div class="pbucket::after" style="background:var(--blue)"></div>
-            <div class="pb-icon">📋</div>
+            <div class="pb-icon">💳</div>
             <div class="pb-name">Bills</div>
             <div class="pb-amt" style="color:var(--blue)">$1,840</div>
             <div class="pb-pct">43%</div>
             <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--blue)"></div>
           </div>
           <div class="pbucket">
-            <div class="pb-icon">🎯</div>
+            <div class="pb-icon">🏦</div>
             <div class="pb-name">Savings</div>
             <div class="pb-amt" style="color:var(--green)">$840</div>
             <div class="pb-pct">20%</div>
             <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--green)"></div>
           </div>
           <div class="pbucket">
-            <div class="pb-icon">💳</div>
+            <div class="pb-icon">🛍️</div>
             <div class="pb-name">Spending</div>
             <div class="pb-amt" style="color:var(--orange)">$970</div>
             <div class="pb-pct">23%</div>
@@ -688,9 +688,9 @@
 
         <div class="pnav">
           <div class="pnav-item on"><span>⌂</span>Home<div class="pnav-pip"></div></div>
-          <div class="pnav-item"><span>📋</span>Bills</div>
-          <div class="pnav-item"><span>🎯</span>Save</div>
-          <div class="pnav-item"><span>💳</span>Spend</div>
+          <div class="pnav-item"><span>💳</span>Bills</div>
+          <div class="pnav-item"><span>🏦</span>Save</div>
+          <div class="pnav-item"><span>🛍️</span>Spend</div>
           <div class="pnav-item"><span>📈</span>Invest</div>
         </div>
       </div>
@@ -714,40 +714,40 @@
   <div class="feat">
     <div class="feat-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
     <div class="feat-num">01</div>
-    <div class="feat-icon" style="background:rgba(61,214,140,0.1)">🏦</div>
+    <div class="feat-icon" style="background:rgba(61,214,140,0.1)"></div>
     <div class="feat-name">Home</div>
-    <div class="feat-desc">Your financial command center. Every dollar allocated at a glance — paycheck split, what's spent, what's left.</div>
+    <div class="feat-desc">Your financial command center. Every dollar allocated at a glance  paycheck split, what's spent, what's left.</div>
   </div>
   <div class="feat">
     <div class="feat-accent" style="background:linear-gradient(90deg,var(--blue),transparent)"></div>
     <div class="feat-num">02</div>
-    <div class="feat-icon" style="background:rgba(91,156,246,0.1)">📋</div>
+    <div class="feat-icon" style="background:rgba(91,156,246,0.1)"></div>
     <div class="feat-name">Bills</div>
     <div class="feat-desc">Track every recurring bill, due date, and payment status. Know exactly which bills fall in each pay period.</div>
   </div>
   <div class="feat">
     <div class="feat-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
     <div class="feat-num">03</div>
-    <div class="feat-icon" style="background:rgba(61,214,140,0.1)">🎯</div>
+    <div class="feat-icon" style="background:rgba(61,214,140,0.1)"></div>
     <div class="feat-name">Savings</div>
-    <div class="feat-desc">Goal-based saving. Emergency fund, vacation, down payment — set a target and watch it grow paycheck by paycheck.</div>
+    <div class="feat-desc">Goal-based saving. Emergency fund, vacation, down payment  set a target and watch it grow paycheck by paycheck.</div>
   </div>
   <div class="feat">
     <div class="feat-accent" style="background:linear-gradient(90deg,var(--orange),transparent)"></div>
     <div class="feat-num">04</div>
-    <div class="feat-icon" style="background:rgba(249,115,22,0.1)">💳</div>
+    <div class="feat-icon" style="background:rgba(249,115,22,0.1)"></div>
     <div class="feat-name">Spending</div>
-    <div class="feat-desc">A guilt-free envelope for daily spending. Know what you have before you swipe — category by category.</div>
+    <div class="feat-desc">A guilt-free envelope for daily spending. Know what you have before you swipe  category by category.</div>
   </div>
   <div class="feat">
     <div class="feat-accent" style="background:linear-gradient(90deg,var(--teal),transparent)"></div>
     <div class="feat-num">05</div>
-    <div class="feat-icon" style="background:rgba(45,212,191,0.1)">📈</div>
+    <div class="feat-icon" style="background:rgba(45,212,191,0.1)"></div>
     <div class="feat-name">Investing</div>
     <div class="feat-desc">Allocate a slice of every paycheck toward your portfolio. Build wealth one pay period at a time.</div>
   </div>
   <div class="feat" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--bg)">
-    <div style="font-size:2rem;margin-bottom:12px">💼</div>
+    <div style="font-size:2rem;margin-bottom:12px">🚀</div>
     <div style="font-size:0.875rem;color:var(--mid);line-height:1.6;max-width:200px">Built for people who want a real system, not just a tracker.</div>
   </div>
 </div>
@@ -792,7 +792,7 @@
         <div class="step-n">04</div>
         <div>
           <div class="step-title">Build real financial habits</div>
-          <div class="step-desc">Month over month you'll see the progress. Allocé grows with your goals — and celebrates every milestone.</div>
+          <div class="step-desc">Month over month you'll see the progress. Allocé grows with your goals  and celebrates every milestone.</div>
         </div>
       </div>
     </div>
@@ -836,7 +836,7 @@
     <div class="cta-box r">
       <div class="cta-left">
         <h2 class="cta-h">Be first when<br>Alloc<span class="g">é</span> launches.</h2>
-        <p class="cta-p">Join the early access list. One email when it's live on the App Store — that's it.</p>
+        <p class="cta-p">Join the early access list. One email when it's live on the App Store  that's it.</p>
       </div>
       <div class="cta-right">
         <div class="email-wrap">
@@ -844,7 +844,7 @@
             <input type="email" class="email-input" placeholder="your@email.com" id="emailInput" autocomplete="email" />
             <button class="email-btn" onclick="signup()">Notify me</button>
           </div>
-          <div class="email-success" id="successMsg">✓ You're on the list — see you at launch!</div>
+          <div class="email-success" id="successMsg">✓ You're on the list  see you at launch!</div>
           <div class="email-note">No spam. Just one email when we launch.</div>
         </div>
       </div>
@@ -872,26 +872,54 @@
 </footer>
 
   <script>
-    // Scroll reveal
+    // ─────────────────────────────────────────────────────────────────
+    //  SUPABASE CONFIG
+    //  Supabase Dashboard → Project Settings → API
+    // ─────────────────────────────────────────────────────────────────
+    const SUPABASE_URL   = 'https://vikmfjzbqvkymtaffhvk.supabase.co'; // e.g. https://abc123.supabase.co
+    const SUPABASE_KEY   = 'sb_publishable_DvIr-7heAhCxl4cDlAavhw_EG1_O3Wf';    // starts with "eyJ..."
+    const WAITLIST_TABLE = 'waitlist';
+    // ─────────────────────────────────────────────────────────────────
+
+        // Scroll reveal
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.08 });
     document.querySelectorAll('.r').forEach(el => io.observe(el));
 
     // Email
-    function signup() {
+    async function signup() {
+      const btn = document.querySelector('.email-btn');
       const inp = document.getElementById('emailInput');
       const msg = document.getElementById('successMsg');
       const v   = inp.value.trim();
-      if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      if (!v || !/^[^\@]+@[^\@]+\\.[^\@]+$/.test(v)) {
         inp.style.borderColor = 'rgba(249,115,22,0.6)';
         setTimeout(() => inp.style.borderColor = '', 1400);
         return;
       }
-      // TODO: POST to Supabase
-      console.log('signup:', v);
-      inp.closest('.email-field').style.display = 'none';
-      msg.style.display = 'block';
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${WAITLIST_TABLE}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ email: v })
+        });
+        if (!res.ok && res.status !== 409) throw new Error('failed');
+        inp.closest('.email-field').style.display = 'none';
+        msg.style.display = 'block';
+      } catch(err) {
+        btn.disabled = false;
+        btn.textContent = 'Notify me';
+        inp.style.borderColor = 'rgba(249,115,22,0.6)';
+        setTimeout(() => inp.style.borderColor = '', 1800);
+      }
     }
     document.getElementById('emailInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') signup();
