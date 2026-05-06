@@ -877,7 +877,7 @@
     //  Supabase Dashboard → Project Settings → API
     // ─────────────────────────────────────────────────────────────────
     const SUPABASE_URL   = 'https://vikmfjzbqvkymtaffhvk.supabase.co'; // e.g. https://abc123.supabase.co
-    const SUPABASE_KEY   = 'sb_publishable_DvIr-7heAhCxl4cDlAavhw_EG1_O3Wf';    // starts with "eyJ..."
+    const SUPABASE_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpa21manpicXZreW10YWZmaHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4OTI1MjcsImV4cCI6MjA5MzQ2ODUyN30.4x4TRfisM8xINcrzLcn6_00rxfVBHQzQ3Ha1dXyI9Ho';    // starts with "eyJ..."
     const WAITLIST_TABLE = 'waitlist';
     // ─────────────────────────────────────────────────────────────────
 
@@ -907,7 +907,8 @@
             'Content-Type': 'application/json',
             'apikey': SUPABASE_KEY,
             'Authorization': `Bearer ${SUPABASE_KEY}`,
-            'Prefer': 'return=minimal'
+            'Prefer': 'return=minimal',
+            'X-Client-Info': 'supabase-js/2.0.0'
           },
           body: JSON.stringify({ email: v })
         });
