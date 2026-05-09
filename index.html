@@ -17,20 +17,31 @@
       --green: #10B981; --dark-green: #1A7A4A;
       --navy: #0C0C0E; --mid: #161B27; --card: #1E2433;
       --white: #FFFFFF; --off-white: #F8FAFC;
-      --muted: #94A3B8; --text: #1E293B;
+      --muted: #94A3B8; --text: #E2E8F0; --subtle: #64748B;
       --blue: #3B82F6; --orange: #F97316;
-      --teal: #0D9488; --purple: #8B5CF6; --amber: #F59E0B;
+      --teal: #0D9488; --purple: #8B5CF6;
+      --border: rgba(255,255,255,0.07);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(12,12,14,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(12,12,14,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
     .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-size: 22px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; text-decoration: none; }
+    .nav-logo { font-size: 22px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; text-decoration: none; cursor: pointer; }
     .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; transition: color .2s; }
+    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; transition: color .2s; cursor: pointer; }
     .nav-links a:hover { color: var(--white); }
+    .nav-back { font-size: 14px; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .2s; }
+    .nav-back:hover { color: var(--white); }
+
+    /* ══════════════════════════════════════
+       HOME PAGE
+    ══════════════════════════════════════ */
 
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 60px; position: relative; overflow: hidden; }
@@ -45,7 +56,7 @@
 
     /* SIGNUP */
     .signup-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin: 0 auto; }
-    .email-row { display: flex; width: 100%; gap: 0; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(16,185,129,0.35); background: rgba(30,36,51,0.8); }
+    .email-row { display: flex; width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(16,185,129,0.35); background: rgba(30,36,51,0.8); }
     .email-row input { flex: 1; background: transparent; border: none; outline: none; padding: 14px 18px; font-size: 15px; color: var(--white); font-family: inherit; }
     .email-row input::placeholder { color: var(--muted); }
     .email-row button { background: var(--green); border: none; cursor: pointer; padding: 14px 22px; font-size: 14px; font-weight: 700; color: var(--navy); font-family: inherit; white-space: nowrap; transition: background .2s; }
@@ -65,14 +76,13 @@
     .bucket-bar { width: 5px; height: 48px; border-radius: 99px; flex-shrink: 0; }
     .bucket-name { font-size: 18px; font-weight: 700; min-width: 160px; }
     .bucket-desc { font-size: 14px; color: var(--muted); flex: 1; }
-    .bucket-pct { font-size: 20px; font-weight: 800; margin-left: auto; }
 
     /* HOW IT WORKS */
     .light-section { background: var(--off-white); }
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
     .step { background: var(--white); border-radius: 16px; padding: 28px; border: 1px solid #E2E8F0; }
     .step-num { font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 12px; }
-    .step h3 { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .step h3 { font-size: 19px; font-weight: 700; color: var(--text-dark, #1E293B); margin-bottom: 8px; }
     .step p { font-size: 14px; color: #64748B; }
 
     /* FREE CALLOUT */
@@ -84,171 +94,335 @@
     .free-features { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
     .free-feature { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 99px; padding: 6px 16px; font-size: 13px; color: var(--green); font-weight: 600; }
 
-    /* FOOTER */
-    footer { border-top: 1px solid rgba(255,255,255,0.06); }
+    /* ══════════════════════════════════════
+       LEGAL PAGES (Terms + Privacy)
+    ══════════════════════════════════════ */
+    .legal-page { max-width: 760px; margin: 0 auto; padding: 100px 24px 80px; }
+    .doc-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .doc-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
+    .doc-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; color: var(--white); letter-spacing: -1px; margin-bottom: 16px; }
+    .doc-meta { font-size: 14px; color: var(--subtle); }
+    .doc-meta a { color: var(--green); text-decoration: none; cursor: pointer; }
+    .legal-page h2 { font-size: 20px; font-weight: 700; color: var(--white); margin: 40px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .legal-page h3 { font-size: 15px; font-weight: 700; color: var(--green); margin: 20px 0 8px; }
+    .legal-page p { font-size: 15px; color: var(--text); margin-bottom: 14px; line-height: 1.8; }
+    .legal-page ul { margin: 8px 0 16px; padding-left: 0; list-style: none; }
+    .legal-page ul li { font-size: 15px; color: var(--text); padding: 5px 0 5px 20px; position: relative; line-height: 1.7; }
+    .legal-page ul li::before { content: '—'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .legal-note { background: rgba(16,185,129,0.07); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.7; }
+    .contact-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-top: 16px; }
+    .contact-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-label { color: var(--subtle); font-weight: 600; min-width: 80px; }
+    .contact-value { color: var(--text); }
+    .contact-value a { color: var(--green); text-decoration: none; }
+
+    /* ══════════════════════════════════════
+       SHARED FOOTER
+    ══════════════════════════════════════ */
+    footer { border-top: 1px solid var(--border); }
     .footer-inner { max-width: 1100px; margin: 0 auto; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-    .footer-logo { font-size: 20px; font-weight: 800; color: var(--green); }
+    .footer-logo { font-size: 20px; font-weight: 800; color: var(--green); cursor: pointer; }
     .footer-links { display: flex; gap: 24px; list-style: none; }
-    .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; cursor: pointer; }
     .footer-links a:hover { color: var(--white); }
-    .footer-copy { font-size: 12px; color: #334155; }
     .footer-socials { display: flex; gap: 16px; }
-    .footer-socials a { color: var(--muted); transition: color .2s, transform .2s; display: flex; align-items: center; }
+    .footer-socials a { color: var(--muted); transition: color .2s, transform .2s; display: flex; align-items: center; cursor: pointer; }
     .footer-socials a:hover { color: var(--green); transform: translateY(-2px); }
+    .footer-copy { font-size: 12px; color: #334155; }
 
     @media (max-width: 600px) {
-      .email-row { flex-direction: column; border-radius: 12px; }
+      .email-row { flex-direction: column; }
       .email-row button { border-radius: 0 0 10px 10px; }
       .nav-links { display: none; }
       .bucket { flex-wrap: wrap; }
-      .bucket-pct { margin-left: 0; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
-  <div class="nav-inner">
-    <a class="nav-logo" href="/">Alloc&eacute;</a>
-    <ul class="nav-links">
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="#free">At Launch</a></li>
-      <li><a href="/terms">Terms</a></li>
-      <li><a href="/privacy">Privacy</a></li>
+  <div class="nav-inner" id="navInner">
+    <span class="nav-logo" onclick="showPage('home')">Alloc&eacute;</span>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home','how')">How It Works</a></li>
+      <li><a onclick="showPage('home','free')">At Launch</a></li>
+      <li><a onclick="showPage('terms')">Terms</a></li>
+      <li><a onclick="showPage('privacy')">Privacy</a></li>
     </ul>
+    <span class="nav-back" id="navBack" style="display:none;" onclick="showPage('home')">&larr; Back to home</span>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="badge">Coming soon to iOS &amp; Android</div>
-  <div class="free-pill">FREE AT LAUNCH &mdash; No credit card needed.</div>
-  <h1>Every dollar<br><span>has a job.</span></h1>
-  <p>Stop wondering where your money went. Alloc&eacute; splits every paycheck into 5 dedicated buckets &mdash; before you spend a dollar.</p>
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
 
-  <div class="signup-wrap">
-    <div class="email-row" id="emailField">
-      <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email" />
-      <button id="signupBtn" onclick="signup()">Notify me</button>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Coming soon to iOS &amp; Android</div>
+    <div class="free-pill">FREE AT LAUNCH &mdash; No credit card needed.</div>
+    <h1>Every dollar<br><span>has a job.</span></h1>
+    <p>Stop wondering where your money went. Alloc&eacute; splits every paycheck into 5 dedicated buckets &mdash; before you spend a dollar.</p>
+    <div class="signup-wrap">
+      <div class="email-row" id="emailField">
+        <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email" />
+        <button id="signupBtn" onclick="signup()">Notify me</button>
+      </div>
+      <div class="success-msg" id="successMsg">✓ &nbsp;You&rsquo;re on the list! We&rsquo;ll reach out when Alloc&eacute; launches.</div>
+      <p class="signup-note">No spam. Just a launch notification when we&rsquo;re live.</p>
     </div>
-    <div class="success-msg" id="successMsg">
-      ✓ &nbsp;You&rsquo;re on the list! We&rsquo;ll reach out when Alloc&eacute; launches.
+  </section>
+
+  <!-- BUCKETS -->
+  <div style="background: var(--mid); padding: 1px 0;">
+  <section class="section">
+    <p class="section-label">The System</p>
+    <h2 class="section-title">Split every paycheck<br>into 5 dedicated buckets.</h2>
+    <p class="section-sub">When your check hits, Alloc&eacute; assigns every dollar a job before you spend it. No more guessing.</p>
+    <div class="buckets-grid">
+      <div class="bucket"><div class="bucket-bar" style="background:#3B82F6;"></div><div class="bucket-name" style="color:#3B82F6;">Bills</div><div class="bucket-desc">Fixed expenses &mdash; rent, utilities, subscriptions. Protected first, always.</div></div>
+      <div class="bucket"><div class="bucket-bar" style="background:#F97316;"></div><div class="bucket-name" style="color:#F97316;">Spending</div><div class="bucket-desc">Food, gas, daily life. Your guilt-free spending allocation per period.</div></div>
+      <div class="bucket"><div class="bucket-bar" style="background:#10B981;"></div><div class="bucket-name" style="color:#10B981;">Savings</div><div class="bucket-desc">Automated savings built into every check. Consistent, non-negotiable.</div></div>
+      <div class="bucket"><div class="bucket-bar" style="background:#0D9488;"></div><div class="bucket-name" style="color:#0D9488;">Sinking Funds</div><div class="bucket-desc">Emergency fund, big purchases, irregular expenses. Ready when life happens.</div></div>
+      <div class="bucket"><div class="bucket-bar" style="background:#8B5CF6;"></div><div class="bucket-name" style="color:#8B5CF6;">Credit Card</div><div class="bucket-desc">Debt paid down systematically every single period. Not when you remember.</div></div>
     </div>
-    <p class="signup-note">No spam. Just a launch notification when we&rsquo;re live.</p>
+  </section>
   </div>
-</section>
 
-<!-- BUCKETS -->
-<div style="background: var(--mid); padding: 1px 0;">
-<section class="section">
-  <p class="section-label">The System</p>
-  <h2 class="section-title">Split every paycheck<br>into 5 dedicated buckets.</h2>
-  <p class="section-sub">When your check hits, Alloc&eacute; assigns every dollar a job before you spend it. No more guessing.</p>
-
-  <div class="buckets-grid">
-    <div class="bucket">
-      <div class="bucket-bar" style="background:#3B82F6;"></div>
-      <div class="bucket-name" style="color:#3B82F6;">Bills</div>
-      <div class="bucket-desc">Fixed expenses &mdash; rent, utilities, subscriptions. Protected first, always.</div>
+  <!-- HOW IT WORKS -->
+  <div class="light-section">
+  <section class="section" id="how">
+    <p class="section-label" style="color:var(--dark-green);">How It Works</p>
+    <h2 class="section-title" style="color:var(--text-dark, #1E293B);">Tell your money where to go.<br>Before it disappears.</h2>
+    <div class="steps">
+      <div class="step"><p class="step-num">STEP 01</p><h3>Enter your income</h3><p>Salaried, hourly, gig, or multiple sources &mdash; Alloc&eacute; handles every income type. Hourly workers get a built-in tax estimate.</p></div>
+      <div class="step"><p class="step-num">STEP 02</p><h3>Get your split</h3><p>The app suggests a smart percentage split based on your income and bills. Adjust it to fit your life. Every dollar gets assigned.</p></div>
+      <div class="step"><p class="step-num">STEP 03</p><h3>Track in real time</h3><p>Mark bills paid, log spending, track savings progress. See exactly how much is left in each bucket &mdash; right now.</p></div>
+      <div class="step"><p class="step-num">STEP 04</p><h3>Never wonder again</h3><p>Bill due date reminders. Payday alerts. Period-over-period history. You&rsquo;re always in control of where the money goes.</p></div>
     </div>
-    <div class="bucket">
-      <div class="bucket-bar" style="background:#F97316;"></div>
-      <div class="bucket-name" style="color:#F97316;">Spending</div>
-      <div class="bucket-desc">Food, gas, daily life. Your guilt-free spending allocation per period.</div>
-    </div>
-    <div class="bucket">
-      <div class="bucket-bar" style="background:#10B981;"></div>
-      <div class="bucket-name" style="color:#10B981;">Savings</div>
-      <div class="bucket-desc">Automated savings built into every check. Consistent, non-negotiable.</div>
-    </div>
-    <div class="bucket">
-      <div class="bucket-bar" style="background:#0D9488;"></div>
-      <div class="bucket-name" style="color:#0D9488;">Sinking Funds</div>
-      <div class="bucket-desc">Emergency fund, big purchases, irregular expenses. Ready when life happens.</div>
-    </div>
-    <div class="bucket">
-      <div class="bucket-bar" style="background:#8B5CF6;"></div>
-      <div class="bucket-name" style="color:#8B5CF6;">Credit Card</div>
-      <div class="bucket-desc">Debt paid down systematically every single period. Not when you remember.</div>
-    </div>
+  </section>
   </div>
-</section>
-</div>
 
-<!-- HOW IT WORKS -->
-<div class="light-section">
-<section class="section" id="how">
-  <p class="section-label" style="color:var(--dark-green);">How It Works</p>
-  <h2 class="section-title" style="color:var(--text);">Tell your money where to go.<br>Before it disappears.</h2>
-
-  <div class="steps">
-    <div class="step">
-      <p class="step-num">STEP 01</p>
-      <h3>Enter your income</h3>
-      <p>Salaried, hourly, gig, or multiple sources &mdash; Alloc&eacute; handles every income type. Hourly workers get a built-in tax estimate.</p>
-    </div>
-    <div class="step">
-      <p class="step-num">STEP 02</p>
-      <h3>Get your split</h3>
-      <p>The app suggests a smart percentage split based on your income and bills. Adjust it to fit your life. Every dollar gets assigned.</p>
-    </div>
-    <div class="step">
-      <p class="step-num">STEP 03</p>
-      <h3>Track in real time</h3>
-      <p>Mark bills paid, log spending, track savings progress. See exactly how much is left in each bucket &mdash; right now.</p>
-    </div>
-    <div class="step">
-      <p class="step-num">STEP 04</p>
-      <h3>Never wonder again</h3>
-      <p>Bill due date reminders. Payday alerts. Period-over-period history. You&rsquo;re always in control of where the money goes.</p>
+  <!-- FREE CALLOUT -->
+  <div class="free-section" id="free">
+    <div class="free-box">
+      <h2>Built around <span>your budget.</span><br>Not ours.</h2>
+      <p>Most budgeting apps make you pay before you even know if it works. We think that&rsquo;s backwards.</p>
+      <p>Alloc&eacute; launches free &mdash; the full system, all 5 buckets, cloud sync, everything. Get in early and build your system before anyone else.</p>
+      <div class="free-features">
+        <span class="free-feature">All 5 screens</span>
+        <span class="free-feature">Cloud sync</span>
+        <span class="free-feature">Bill tracking</span>
+        <span class="free-feature">Push notifications</span>
+        <span class="free-feature">Savings goals</span>
+        <span class="free-feature">Spending tracker</span>
+        <span class="free-feature">Dark mode</span>
+      </div>
     </div>
   </div>
-</section>
-</div>
 
-<!-- FREE CALLOUT -->
-<div class="free-section" id="free">
-  <div class="free-box">
-    <h2>Built around <span>your budget.</span><br>Not ours.</h2>
-    <p>Most budgeting apps make you pay before you even know if it works. We think that&rsquo;s backwards.</p>
-    <p>Alloc&eacute; launches free &mdash; the full system, all 5 buckets, cloud sync, everything. Get in early and build your system before anyone else.</p>
-    <div class="free-features">
-      <span class="free-feature">All 5 screens</span>
-      <span class="free-feature">Cloud sync</span>
-      <span class="free-feature">Bill tracking</span>
-      <span class="free-feature">Push notifications</span>
-      <span class="free-feature">Savings goals</span>
-      <span class="free-feature">Spending tracker</span>
-      <span class="free-feature">Dark mode</span>
+  <!-- FOOTER CTA -->
+  <section class="section" style="text-align:center; padding-bottom: 40px;">
+    <h2 style="font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;">Get notified when<br>we launch.</h2>
+    <p style="color:var(--muted);font-size:17px;margin-bottom:32px;">Be the first to know when we go live.</p>
+    <div class="signup-wrap" style="margin:0 auto;">
+      <div class="email-row" id="emailField2">
+        <input type="email" id="emailInput2" placeholder="Your email address" autocomplete="email" />
+        <button id="signupBtn2" onclick="signup2()">Notify me</button>
+      </div>
+      <div class="success-msg" id="successMsg2">✓ &nbsp;You&rsquo;re on the list!</div>
+    </div>
+  </section>
+
+</div><!-- end page-home -->
+
+<!-- ══════════════════════════════════════
+     TERMS PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-terms">
+  <div class="legal-page">
+    <div class="doc-header">
+      <p class="doc-label">Legal</p>
+      <h1 class="doc-title">Terms of Service</h1>
+      <p class="doc-meta">Alloc&eacute; Technologies LLC &nbsp;&middot;&nbsp; Effective May 9, 2026 &nbsp;&middot;&nbsp; <a onclick="showPage('privacy')">Privacy Policy &rarr;</a></p>
+    </div>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement between you and Alloc&eacute; Technologies LLC governing your use of the Alloc&eacute; mobile application and related services (&ldquo;Service&rdquo;). By downloading or using Alloc&eacute;, you agree to these Terms. If you do not agree, do not use the Service.</p>
+    <p>We may update these Terms at any time. Material changes will be communicated via in-app notice or email. Continued use after changes take effect constitutes acceptance.</p>
+
+    <h2>2. Description of Service</h2>
+    <p>Alloc&eacute; is a personal budgeting application that helps users allocate income across 5 dedicated budget buckets: Bills, Spending, Savings, Sinking Funds, and Credit Card. The Service includes cloud sync, push notifications, and manual budget entry.</p>
+    <p>Alloc&eacute; is currently free to use. A Pro tier with additional features is planned for a future release. No features currently available for free will be moved behind a paywall without adequate notice.</p>
+
+    <h2>3. Accounts</h2>
+    <h3>3.1 Registration</h3>
+    <p>You must provide an accurate email address and create a password to use the Service. You are responsible for maintaining the confidentiality of your credentials.</p>
+    <h3>3.2 Account Security</h3>
+    <p>You are responsible for all activity that occurs under your account. Notify us immediately at <a href="mailto:support@alloce.app" style="color:var(--green);">support@alloce.app</a> if you suspect unauthorized access.</p>
+    <h3>3.3 Account Deletion</h3>
+    <p>You may delete your account at any time in the App settings. Deletion is permanent and all associated data will be purged within 30 days.</p>
+
+    <h2>4. Acceptable Use</h2>
+    <p>You agree to use the Service only for lawful personal budgeting purposes. You agree not to:</p>
+    <ul>
+      <li>Reverse engineer, decompile, or disassemble any part of the App</li>
+      <li>Use automated tools or scripts to access the Service</li>
+      <li>Attempt to gain unauthorized access to any part of the Service or its infrastructure</li>
+      <li>Upload malicious code or content of any kind</li>
+      <li>Impersonate any person or entity</li>
+      <li>Use the Service for any commercial purpose without written consent</li>
+    </ul>
+
+    <h2>5. Financial Disclaimer</h2>
+    <p>Alloc&eacute; is a budgeting tool, not a financial advisor, broker, or investment advisor. Nothing in the App constitutes financial, investment, tax, or legal advice. Budget suggestions and split recommendations are automated calculations based on information you provide &mdash; they are not personalized financial advice.</p>
+    <p>Always consult a qualified financial professional for advice specific to your situation.</p>
+    <div class="legal-note">If you use the gig worker or freelance income type, the tax estimates shown are approximations only. Self-employment tax rates vary. Consult a tax professional.</div>
+
+    <h2>6. Intellectual Property</h2>
+    <p>The Alloc&eacute; name, logo, design, code, and all content are the exclusive property of Alloc&eacute; Technologies LLC. Nothing in these Terms grants you any right to use our trademarks, trade names, or branding without prior written permission.</p>
+    <p>You retain full ownership of all financial data you enter into the App.</p>
+
+    <h2>7. Disclaimers &amp; Limitation of Liability</h2>
+    <h3>7.1 As-Is Service</h3>
+    <p>THE SERVICE IS PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS.</p>
+    <h3>7.2 Limitation of Liability</h3>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, ALLOC&Eacute; TECHNOLOGIES LLC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF THE SERVICE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+
+    <h2>8. Termination</h2>
+    <p>We may suspend or terminate your access to the Service at any time for violation of these Terms. You may stop using the Service at any time. Sections 5, 6, 7, and 9 survive termination.</p>
+
+    <h2>9. Governing Law</h2>
+    <p>These Terms are governed by the laws of the State of Maryland, without regard to its conflict of laws principles. Any disputes shall be resolved in the courts of Maryland.</p>
+
+    <h2>10. Entire Agreement</h2>
+    <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and the Company regarding your use of the Service.</p>
+
+    <h2>11. Contact</h2>
+    <p>For questions about these Terms:</p>
+    <div class="contact-box">
+      <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:legal@alloce.app">legal@alloce.app</a></span></div>
+      <div class="contact-row"><span class="contact-label">Website</span><span class="contact-value">alloce.app/terms</span></div>
+      <div class="contact-row"><span class="contact-label">Company</span><span class="contact-value">Alloc&eacute; Technologies LLC</span></div>
+      <div class="contact-row"><span class="contact-label">Effective</span><span class="contact-value">May 9, 2026</span></div>
     </div>
   </div>
-</div>
+</div><!-- end page-terms -->
 
-<!-- FOOTER CTA -->
-<section class="section" style="text-align:center; padding-bottom: 40px;">
-  <h2 style="font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;">
-    Get notified when<br>we launch.
-  </h2>
-  <p style="color:var(--muted);font-size:17px;margin-bottom:32px;">Be the first to know when we go live.</p>
-  <div class="signup-wrap" style="margin:0 auto;">
-    <div class="email-row" id="emailField2">
-      <input type="email" id="emailInput2" placeholder="Your email address" autocomplete="email" />
-      <button id="signupBtn2" onclick="signup2()">Notify me</button>
+<!-- ══════════════════════════════════════
+     PRIVACY PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-privacy">
+  <div class="legal-page">
+    <div class="doc-header">
+      <p class="doc-label">Legal</p>
+      <h1 class="doc-title">Privacy Policy</h1>
+      <p class="doc-meta">Alloc&eacute; Technologies LLC &nbsp;&middot;&nbsp; Effective May 9, 2026 &nbsp;&middot;&nbsp; <a onclick="showPage('terms')">Terms of Service &rarr;</a></p>
     </div>
-    <div class="success-msg" id="successMsg2">
-      ✓ &nbsp;You&rsquo;re on the list!
+
+    <h2>1. Introduction</h2>
+    <p>This Privacy Policy describes how Alloc&eacute; Technologies LLC collects, uses, and protects information when you use the Alloc&eacute; mobile application and related services. By using Alloc&eacute;, you agree to the collection and use of information in accordance with this policy.</p>
+    <p>Our core principle: your financial data belongs to you. We collect only what is necessary to provide the Service and we never sell your personal information.</p>
+
+    <h2>2. Information We Collect</h2>
+    <h3>2.1 Information You Provide</h3>
+    <ul>
+      <li>Account credentials: email address and password used to create your account</li>
+      <li>Financial data: income amounts, bill names and amounts, savings goals, spending categories, and budget splits you enter manually</li>
+      <li>Device information: optional, for account recovery and support</li>
+    </ul>
+    <div class="legal-note">We never ask for your bank credentials, Social Security Number, or government-issued ID. All financial data you enter is data you type yourself.</div>
+
+    <h3>2.2 Information Collected Automatically</h3>
+    <ul>
+      <li>App usage data: which screens you visit and features you use — used to improve the product</li>
+      <li>Device and OS information: device type, operating system version, for compatibility and debugging</li>
+      <li>Crash reports: anonymized error logs when the app crashes, to identify and fix bugs</li>
+    </ul>
+
+    <h3>2.3 Information We Do Not Collect</h3>
+    <ul>
+      <li>We do not access your bank accounts, credit cards, or financial institutions</li>
+      <li>We do not collect biometric data</li>
+      <li>We do not collect location data</li>
+      <li>We do not track you across other apps or websites</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <ul>
+      <li>To provide and maintain the Service, including syncing your budget data across devices</li>
+      <li>To authenticate your identity and secure your account</li>
+      <li>To send push notifications you have enabled (bill due dates, payday reminders)</li>
+      <li>To respond to customer support requests</li>
+      <li>To improve and develop new features based on aggregated, anonymized usage patterns</li>
+      <li>To comply with legal obligations</li>
+    </ul>
+    <div class="legal-note">We do not use your financial data for advertising. We do not share your data with advertising networks. Alloc&eacute; is ad-free.</div>
+
+    <h2>4. Data Storage &amp; Security</h2>
+    <h3>4.1 Where Your Data Lives</h3>
+    <p>Your account and budget data is stored securely in Supabase, our cloud database provider. Supabase is hosted on AWS and maintains SOC 2 Type II compliance. All data is encrypted in transit (TLS) and at rest.</p>
+    <p>Row Level Security (RLS) is enforced on all database tables. Your data is technically isolated at the database level &mdash; queries are scoped to your user ID only.</p>
+
+    <h3>4.2 Data Retention</h3>
+    <ul>
+      <li>Active accounts: data retained for the life of your account</li>
+      <li>Deleted accounts: all personal data purged within 30 days of account deletion</li>
+      <li>Anonymized usage analytics: may be retained indefinitely</li>
+    </ul>
+
+    <h3>4.3 Security Practices</h3>
+    <ul>
+      <li>All API keys and secrets are stored in environment variables, never in the app codebase</li>
+      <li>Authentication uses PKCE flow, the most secure method available for mobile apps</li>
+      <li>We conduct regular security reviews of our Supabase RLS policies</li>
+    </ul>
+
+    <h2>5. Third-Party Services</h2>
+    <ul>
+      <li>Supabase &mdash; cloud database, authentication, and backend infrastructure</li>
+      <li>Expo / Apple / Google &mdash; for app distribution and push notifications</li>
+      <li>RevenueCat (planned) &mdash; subscription management when Pro tier launches</li>
+    </ul>
+    <div class="legal-note">Future integrations such as Plaid (brokerage connection) will be opt-in only and clearly disclosed before they are enabled.</div>
+
+    <h2>6. Your Rights</h2>
+    <h3>6.1 Access &amp; Portability</h3>
+    <p>You may request a copy of the personal data we hold about you at any time by emailing <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a>.</p>
+    <h3>6.2 Correction</h3>
+    <p>You may update your account information directly in the App settings at any time.</p>
+    <h3>6.3 Deletion</h3>
+    <p>You may delete your account directly in the App. All associated data will be permanently deleted within 30 days. This is required by Apple App Store guidelines.</p>
+    <h3>6.4 California Residents (CCPA)</h3>
+    <p>If you are a California resident, you have the right to know what personal information we collect, request deletion, and opt out of the sale of personal information. We do not sell personal information. Contact <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a> to exercise your CCPA rights.</p>
+
+    <h2>7. Children&rsquo;s Privacy</h2>
+    <p>Alloc&eacute; is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, contact <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a> and we will delete it promptly.</p>
+
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy periodically. Material changes will be communicated via in-app notification and by updating the effective date above. Continued use of the App after changes constitutes acceptance.</p>
+
+    <h2>9. Contact</h2>
+    <p>For privacy questions, requests, or concerns:</p>
+    <div class="contact-box">
+      <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:privacy@alloce.app">privacy@alloce.app</a></span></div>
+      <div class="contact-row"><span class="contact-label">Website</span><span class="contact-value">alloce.app/privacy</span></div>
+      <div class="contact-row"><span class="contact-label">Company</span><span class="contact-value">Alloc&eacute; Technologies LLC</span></div>
+      <div class="contact-row"><span class="contact-label">Effective</span><span class="contact-value">May 9, 2026</span></div>
     </div>
   </div>
-</section>
+</div><!-- end page-privacy -->
 
-<!-- FOOTER -->
+<!-- ── SHARED FOOTER ── -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">Alloc&eacute;</div>
+    <div class="footer-logo" onclick="showPage('home')">Alloc&eacute;</div>
     <ul class="footer-links">
-      <li><a href="/privacy">Privacy Policy</a></li>
-      <li><a href="/terms">Terms of Service</a></li>
+      <li><a onclick="showPage('privacy')">Privacy Policy</a></li>
+      <li><a onclick="showPage('terms')">Terms of Service</a></li>
       <li><a href="mailto:support@alloce.app">Contact</a></li>
     </ul>
     <div class="footer-socials">
@@ -265,24 +439,58 @@
 
 <script>
   // ── Supabase config ──────────────────────────────────────────────────────
-  // Replace these with your actual values from Supabase Dashboard → Settings → API
   const SUPABASE_URL = 'https://vikmfjzbqvkymtaffhvk.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_DvIr-7heAhCxl4cDlAavhw_EG1_O3Wf';
 
+  // ── Page routing ─────────────────────────────────────────────────────────
+  function showPage(name, scrollTo) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Show target
+    document.getElementById('page-' + name).classList.add('active');
+    // Nav state
+    const isHome = name === 'home';
+    document.getElementById('navLinks').style.display = isHome ? '' : 'none';
+    document.getElementById('navBack').style.display = isHome ? 'none' : '';
+    // Update URL without reload
+    const paths = { home: '/', terms: '/terms', privacy: '/privacy' };
+    history.pushState({ page: name }, '', paths[name] || '/');
+    // Scroll
+    window.scrollTo(0, 0);
+    if (scrollTo) {
+      setTimeout(() => {
+        const el = document.getElementById(scrollTo);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+  }
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', e => {
+    const page = e.state?.page || 'home';
+    showPage(page);
+  });
+
+  // Load correct page on initial load
+  window.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname;
+    if (path.includes('terms')) showPage('terms');
+    else if (path.includes('privacy')) showPage('privacy');
+    else showPage('home');
+  });
+
+  // ── Waitlist signup ──────────────────────────────────────────────────────
   async function submitEmail(email, btnId, fieldId, msgId) {
     const btn = document.getElementById(btnId);
     const field = document.getElementById(fieldId);
     const msg = document.getElementById(msgId);
-
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       field.style.borderColor = 'rgba(239,68,68,0.6)';
       setTimeout(() => field.style.borderColor = 'rgba(16,185,129,0.35)', 1400);
       return;
     }
-
     btn.disabled = true;
     btn.textContent = 'Saving...';
-
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
         method: 'POST',
@@ -294,14 +502,10 @@
         },
         body: JSON.stringify({ email })
       });
-
-      // 201 = created, 409 = duplicate (already on list) — both are fine
       if (res.ok || res.status === 409) {
         field.style.display = 'none';
         msg.style.display = 'block';
-      } else {
-        throw new Error(`Status ${res.status}`);
-      }
+      } else { throw new Error(`Status ${res.status}`); }
     } catch (err) {
       console.error('Signup error:', err);
       btn.disabled = false;
@@ -311,18 +515,13 @@
     }
   }
 
-  function signup() {
-    const email = document.getElementById('emailInput').value.trim();
-    submitEmail(email, 'signupBtn', 'emailField', 'successMsg');
-  }
-  function signup2() {
-    const email = document.getElementById('emailInput2').value.trim();
-    submitEmail(email, 'signupBtn2', 'emailField2', 'successMsg2');
-  }
+  function signup()  { submitEmail(document.getElementById('emailInput').value.trim(),  'signupBtn',  'emailField',  'successMsg'); }
+  function signup2() { submitEmail(document.getElementById('emailInput2').value.trim(), 'signupBtn2', 'emailField2', 'successMsg2'); }
 
-  // Allow Enter key on both inputs
-  document.getElementById('emailInput').addEventListener('keydown', e => { if(e.key==='Enter') signup(); });
-  document.getElementById('emailInput2').addEventListener('keydown', e => { if(e.key==='Enter') signup2(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('emailInput').addEventListener('keydown',  e => { if(e.key==='Enter') signup(); });
+    document.getElementById('emailInput2').addEventListener('keydown', e => { if(e.key==='Enter') signup2(); });
+  });
 </script>
 
 </body>
