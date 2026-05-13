@@ -550,8 +550,15 @@
         body: JSON.stringify({ email })
       });
       if (res.ok || res.status === 409) {
-        field.style.display = 'none';
-        msg.style.display = 'block';
+  field.style.display = 'none';
+  msg.style.display = 'block';
+  // Trigger welcome + notification emails
+  fetch('https://vikmfjzbqvkymtaffhvk.supabase.co/functions/v1/waitlist-welcome', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  })
+}
       } else { throw new Error(`Status ${res.status}`); }
     } catch (err) {
       console.error('Signup error:', err);
