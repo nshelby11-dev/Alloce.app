@@ -160,20 +160,12 @@
 ══════════════════════════════════════ -->
 <div class="page active" id="page-home">
 
-  <!-- HERO -->
+  <!-- HERO — signup removed, single CTA is at the bottom -->
   <section class="hero">
     <div class="badge">Coming soon to iOS &amp; Android</div>
     <div class="free-pill">FREE AT LAUNCH &mdash; No credit card needed.</div>
     <h1>Every dollar<br><span>has a job.</span></h1>
     <p>Stop wondering where your money went. Alloc&eacute; splits every paycheck into 5 dedicated buckets &mdash; before you spend a dollar.</p>
-    <div class="signup-wrap">
-      <div class="email-row" id="emailField">
-        <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email" />
-        <button id="signupBtn" onclick="signup()">Notify me</button>
-      </div>
-      <div class="success-msg" id="successMsg">✓ &nbsp;You&rsquo;re on the list! We&rsquo;ll reach out when Alloc&eacute; launches.</div>
-      <p class="signup-note">No spam. Just a launch notification when we&rsquo;re live.</p>
-    </div>
   </section>
 
   <!-- BUCKETS -->
@@ -206,12 +198,11 @@
   </section>
   </div>
 
-  <!-- FREE CALLOUT -->
+  <!-- FREE CALLOUT — tightened copy -->
   <div class="free-section" id="free">
     <div class="free-box">
       <h2>Built around <span>your budget.</span><br>Not ours.</h2>
-      <p>Most budgeting apps make you pay before you even know if it works. We think that&rsquo;s backwards.</p>
-      <p>Alloc&eacute; launches free &mdash; the full system, all 5 buckets, cloud sync, everything. Get in early and build your system before anyone else.</p>
+      <p>Most budgeting apps charge you before you know if they work. Alloc&eacute; launches free &mdash; the full system, all 5 buckets, cloud sync, everything included from day one.</p>
       <div class="free-features">
         <span class="free-feature">All 5 screens</span>
         <span class="free-feature">Cloud sync</span>
@@ -224,16 +215,17 @@
     </div>
   </div>
 
-  <!-- FOOTER CTA -->
+  <!-- SINGLE SIGNUP CTA -->
   <section class="section" style="text-align:center; padding-bottom: 40px;">
     <h2 style="font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;">Get notified when<br>we launch.</h2>
     <p style="color:var(--muted);font-size:17px;margin-bottom:32px;">Be the first to know when we go live.</p>
     <div class="signup-wrap" style="margin:0 auto;">
-      <div class="email-row" id="emailField2">
-        <input type="email" id="emailInput2" placeholder="Your email address" autocomplete="email" />
-        <button id="signupBtn2" onclick="signup2()">Notify me</button>
+      <div class="email-row" id="emailField">
+        <input type="email" id="emailInput" placeholder="Your email address" autocomplete="email" />
+        <button id="signupBtn" onclick="signup()">Notify me</button>
       </div>
-      <div class="success-msg" id="successMsg2">✓ &nbsp;You&rsquo;re on the list!</div>
+      <div class="success-msg" id="successMsg">&#10003; &nbsp;You&rsquo;re on the list! We&rsquo;ll reach out when Alloc&eacute; launches.</div>
+      <p class="signup-note">No spam. Just a launch notification when we&rsquo;re live.</p>
     </div>
   </section>
 
@@ -504,18 +496,13 @@
 
   // ── Page routing ─────────────────────────────────────────────────────────
   function showPage(name, scrollTo) {
-    // Hide all pages
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    // Show target
     document.getElementById('page-' + name).classList.add('active');
-    // Nav state
     const isHome = name === 'home';
     document.getElementById('navLinks').style.display = isHome ? '' : 'none';
     document.getElementById('navBack').style.display = isHome ? 'none' : '';
-    // Update URL without reload
     const paths = { home: '/', terms: '/terms', privacy: '/privacy' };
     history.pushState({ page: name }, '', paths[name] || '/');
-    // Scroll
     window.scrollTo(0, 0);
     if (scrollTo) {
       setTimeout(() => {
@@ -525,13 +512,11 @@
     }
   }
 
-  // Handle browser back/forward
   window.addEventListener('popstate', e => {
     const page = e.state?.page || 'home';
     showPage(page);
   });
 
-  // Load correct page on initial load
   window.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
     if (path.includes('terms')) showPage('terms');
@@ -540,10 +525,12 @@
   });
 
   // ── Waitlist signup ──────────────────────────────────────────────────────
-  async function submitEmail(email, btnId, fieldId, msgId) {
-    const btn = document.getElementById(btnId);
-    const field = document.getElementById(fieldId);
-    const msg = document.getElementById(msgId);
+  async function signup() {
+    const btn   = document.getElementById('signupBtn');
+    const field = document.getElementById('emailField');
+    const msg   = document.getElementById('successMsg');
+    const email = document.getElementById('emailInput').value.trim();
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       field.style.borderColor = 'rgba(239,68,68,0.6)';
       setTimeout(() => field.style.borderColor = 'rgba(16,185,129,0.35)', 1400);
@@ -575,12 +562,10 @@
     }
   }
 
-  function signup()  { submitEmail(document.getElementById('emailInput').value.trim(),  'signupBtn',  'emailField',  'successMsg'); }
-  function signup2() { submitEmail(document.getElementById('emailInput2').value.trim(), 'signupBtn2', 'emailField2', 'successMsg2'); }
-
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('emailInput').addEventListener('keydown',  e => { if(e.key==='Enter') signup(); });
-    document.getElementById('emailInput2').addEventListener('keydown', e => { if(e.key==='Enter') signup2(); });
+    document.getElementById('emailInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') signup();
+    });
   });
 </script>
 
