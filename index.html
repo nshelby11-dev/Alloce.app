@@ -160,7 +160,7 @@
 ══════════════════════════════════════ -->
 <div class="page active" id="page-home">
 
-  <!-- HERO — signup removed, single CTA is at the bottom -->
+  <!-- HERO -->
   <section class="hero">
     <div class="badge">Coming soon to iOS &amp; Android</div>
     <div class="free-pill">FREE AT LAUNCH &mdash; No credit card needed.</div>
@@ -198,7 +198,7 @@
   </section>
   </div>
 
-  <!-- FREE CALLOUT — tightened copy -->
+  <!-- FREE CALLOUT -->
   <div class="free-section" id="free">
     <div class="free-box">
       <h2>Built around <span>your budget.</span><br>Not ours.</h2>
@@ -536,8 +536,10 @@
       setTimeout(() => field.style.borderColor = 'rgba(16,185,129,0.35)', 1400);
       return;
     }
+
     btn.disabled = true;
     btn.textContent = 'Saving...';
+
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
         method: 'POST',
@@ -549,17 +551,19 @@
         },
         body: JSON.stringify({ email })
       });
+
       if (res.ok || res.status === 409) {
-  field.style.display = 'none';
-  msg.style.display = 'block';
-  // Trigger welcome + notification emails
-  fetch('https://vikmfjzbqvkymtaffhvk.supabase.co/functions/v1/waitlist-welcome', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email })
-  })
-}
-      } else { throw new Error(`Status ${res.status}`); }
+        field.style.display = 'none';
+        msg.style.display = 'block';
+        // Trigger welcome + notification emails
+        fetch('https://vikmfjzbqvkymtaffhvk.supabase.co/functions/v1/waitlist-welcome', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+      } else {
+        throw new Error(`Status ${res.status}`);
+      }
     } catch (err) {
       console.error('Signup error:', err);
       btn.disabled = false;
