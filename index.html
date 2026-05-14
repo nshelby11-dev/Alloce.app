@@ -529,7 +529,8 @@
     const btn   = document.getElementById('signupBtn');
     const field = document.getElementById('emailField');
     const msg   = document.getElementById('successMsg');
-    const email = document.getElementById('emailInput').value.trim();
+    const input = document.getElementById('emailInput');
+    const email = input.value.trim();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       field.style.borderColor = 'rgba(239,68,68,0.6)';
@@ -552,10 +553,17 @@
         body: JSON.stringify({ email })
       });
 
-      if (res.ok || res.status === 409) {
+      if (res.status === 409) {
+        // Already on the list
+        btn.disabled = false;
+        btn.textContent = 'Notify me';
+        input.value = '';
+        input.placeholder = "You're already on the list!";
+        field.style.borderColor = 'rgba(16,185,129,0.5)';
+      } else if (res.ok) {
+        // New signup — show success and trigger emails
         field.style.display = 'none';
         msg.style.display = 'block';
-        // Trigger welcome + notification emails
         fetch('https://vikmfjzbqvkymtaffhvk.supabase.co/functions/v1/waitlist-welcome', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
