@@ -5,9 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Allocé — Every dollar has a job.</title>
   <meta name="description" content="Allocé is the budgeting app that tells you where your money goes — before you spend it. Every dollar has a job." />
+
+  <!-- Open Graph / iMessage / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alloce.app/" />
   <meta property="og:title" content="Allocé — Every dollar has a job." />
-  <meta property="og:description" content="The budgeting app that splits every paycheck into 5 dedicated buckets. A real system that actually works." />
-  <meta property="og:url" content="https://alloce.app" />
+  <meta property="og:description" content="Tell your money where to go. Before it disappears. Bills, savings, spending, and investing — all in one place." />
+  <meta property="og:image" content="https://nshelby11-dev.github.io/Alloce.app/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Allocé — Every dollar has a job." />
+  <meta name="twitter:description" content="Tell your money where to go. Before it disappears. Bills, savings, spending, and investing — all in one place." />
+  <meta name="twitter:image" content="https://nshelby11-dev.github.io/Alloce.app/og-image.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -24,12 +37,8 @@
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
-
-    /* ── PAGES ── */
     .page { display: none; }
     .page.active { display: block; }
-
-    /* ── NAV ── */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(12,12,14,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
     .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
     .nav-logo { font-size: 22px; font-weight: 800; color: var(--green); letter-spacing: -0.5px; text-decoration: none; cursor: pointer; }
@@ -38,12 +47,6 @@
     .nav-links a:hover { color: var(--white); }
     .nav-back { font-size: 14px; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .2s; }
     .nav-back:hover { color: var(--white); }
-
-    /* ══════════════════════════════════════
-       HOME PAGE
-    ══════════════════════════════════════ */
-
-    /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 60px; position: relative; overflow: hidden; }
     .hero::before { content:''; position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:700px; height:700px; background:radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%); pointer-events:none; }
     .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); border-radius: 99px; padding: 6px 16px; font-size: 13px; color: var(--green); font-weight: 600; margin-bottom: 32px; }
@@ -53,8 +56,6 @@
     .hero h1 span { color: var(--green); }
     .hero p { font-size: clamp(17px, 2.5vw, 22px); color: var(--muted); max-width: 580px; margin: 0 auto 40px; }
     .free-pill { display: inline-block; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; padding: 8px 20px; font-size: 14px; color: var(--green); font-weight: 700; margin-bottom: 32px; letter-spacing: 0.5px; }
-
-    /* SIGNUP */
     .signup-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin: 0 auto; }
     .email-row { display: flex; width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(16,185,129,0.35); background: rgba(30,36,51,0.8); }
     .email-row input { flex: 1; background: transparent; border: none; outline: none; padding: 14px 18px; font-size: 15px; color: var(--white); font-family: inherit; }
@@ -64,8 +65,6 @@
     .email-row button:disabled { opacity: .6; cursor: not-allowed; }
     .success-msg { display: none; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 14px 20px; font-size: 15px; color: var(--green); font-weight: 600; width: 100%; text-align: center; }
     .signup-note { font-size: 13px; color: var(--muted); }
-
-    /* BUCKETS */
     .section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
     .section-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 16px; }
     .section-title { font-size: clamp(30px, 4vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px; }
@@ -76,16 +75,12 @@
     .bucket-bar { width: 5px; height: 48px; border-radius: 99px; flex-shrink: 0; }
     .bucket-name { font-size: 18px; font-weight: 700; min-width: 160px; }
     .bucket-desc { font-size: 14px; color: var(--muted); flex: 1; }
-
-    /* HOW IT WORKS */
     .light-section { background: var(--off-white); }
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
     .step { background: var(--white); border-radius: 16px; padding: 28px; border: 1px solid #E2E8F0; }
     .step-num { font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 12px; }
-    .step h3 { font-size: 19px; font-weight: 700; color: var(--text-dark, #1E293B); margin-bottom: 8px; }
+    .step h3 { font-size: 19px; font-weight: 700; color: #1E293B; margin-bottom: 8px; }
     .step p { font-size: 14px; color: #64748B; }
-
-    /* FREE CALLOUT */
     .free-section { background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(12,12,14,0) 60%); border-top: 1px solid rgba(16,185,129,0.12); border-bottom: 1px solid rgba(16,185,129,0.12); }
     .free-box { max-width: 700px; margin: 0 auto; text-align: center; padding: 80px 24px; }
     .free-box h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
@@ -93,10 +88,6 @@
     .free-box p { font-size: 17px; color: var(--muted); margin-bottom: 16px; }
     .free-features { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
     .free-feature { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 99px; padding: 6px 16px; font-size: 13px; color: var(--green); font-weight: 600; }
-
-    /* ══════════════════════════════════════
-       LEGAL PAGES (Terms + Privacy)
-    ══════════════════════════════════════ */
     .legal-page { max-width: 760px; margin: 0 auto; padding: 100px 24px 80px; }
     .doc-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
     .doc-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
@@ -116,10 +107,6 @@
     .contact-label { color: var(--subtle); font-weight: 600; min-width: 80px; }
     .contact-value { color: var(--text); }
     .contact-value a { color: var(--green); text-decoration: none; }
-
-    /* ══════════════════════════════════════
-       SHARED FOOTER
-    ══════════════════════════════════════ */
     footer { border-top: 1px solid var(--border); }
     .footer-inner { max-width: 1100px; margin: 0 auto; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
     .footer-logo { font-size: 20px; font-weight: 800; color: var(--green); cursor: pointer; }
@@ -130,7 +117,6 @@
     .footer-socials a { color: var(--muted); transition: color .2s, transform .2s; display: flex; align-items: center; cursor: pointer; }
     .footer-socials a:hover { color: var(--green); transform: translateY(-2px); }
     .footer-copy { font-size: 12px; color: #334155; }
-
     @media (max-width: 600px) {
       .email-row { flex-direction: column; }
       .email-row button { border-radius: 0 0 10px 10px; }
@@ -141,7 +127,6 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <div class="nav-inner" id="navInner">
     <span class="nav-logo" onclick="showPage('home')">Alloc&eacute;</span>
@@ -155,12 +140,7 @@
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════ -->
 <div class="page active" id="page-home">
-
-  <!-- HERO -->
   <section class="hero">
     <div class="badge">Coming soon to iOS &amp; Android</div>
     <div class="free-pill">FREE AT LAUNCH &mdash; No credit card needed.</div>
@@ -168,7 +148,6 @@
     <p>Stop wondering where your money went. Alloc&eacute; splits every paycheck into 5 dedicated buckets &mdash; before you spend a dollar.</p>
   </section>
 
-  <!-- BUCKETS -->
   <div style="background: var(--mid); padding: 1px 0;">
   <section class="section">
     <p class="section-label">The System</p>
@@ -184,11 +163,10 @@
   </section>
   </div>
 
-  <!-- HOW IT WORKS -->
   <div class="light-section">
   <section class="section" id="how">
     <p class="section-label" style="color:var(--dark-green);">How It Works</p>
-    <h2 class="section-title" style="color:var(--text-dark, #1E293B);">Tell your money where to go.<br>Before it disappears.</h2>
+    <h2 class="section-title" style="color:#1E293B;">Tell your money where to go.<br>Before it disappears.</h2>
     <div class="steps">
       <div class="step"><p class="step-num">STEP 01</p><h3>Enter your income</h3><p>Salaried, hourly, gig, or multiple sources &mdash; Alloc&eacute; handles every income type. Hourly workers get a built-in tax estimate.</p></div>
       <div class="step"><p class="step-num">STEP 02</p><h3>Get your split</h3><p>The app suggests a smart percentage split based on your income and bills. Adjust it to fit your life. Every dollar gets assigned.</p></div>
@@ -198,7 +176,6 @@
   </section>
   </div>
 
-  <!-- FREE CALLOUT -->
   <div class="free-section" id="free">
     <div class="free-box">
       <h2>Built around <span>your budget.</span><br>Not ours.</h2>
@@ -215,7 +192,6 @@
     </div>
   </div>
 
-  <!-- SINGLE SIGNUP CTA -->
   <section class="section" style="text-align:center; padding-bottom: 40px;">
     <h2 style="font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px;">Get notified when<br>we launch.</h2>
     <p style="color:var(--muted);font-size:17px;margin-bottom:32px;">Be the first to know when we go live.</p>
@@ -228,12 +204,8 @@
       <p class="signup-note">No spam. Just a launch notification when we&rsquo;re live.</p>
     </div>
   </section>
+</div>
 
-</div><!-- end page-home -->
-
-<!-- ══════════════════════════════════════
-     TERMS PAGE
-══════════════════════════════════════ -->
 <div class="page" id="page-terms">
   <div class="legal-page">
     <div class="doc-header">
@@ -241,17 +213,14 @@
       <h1 class="doc-title">Terms of Service</h1>
       <p class="doc-meta">Alloc&eacute; Technologies LLC &nbsp;&middot;&nbsp; Effective May 10, 2026 &nbsp;&middot;&nbsp; <a onclick="showPage('privacy')">Privacy Policy &rarr;</a></p>
     </div>
-
     <h2>1. Acceptance of Terms</h2>
     <p>These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement between you (&ldquo;User,&rdquo; &ldquo;you,&rdquo; or &ldquo;your&rdquo;) and Alloc&eacute; Technologies LLC (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) governing your access to and use of the Alloc&eacute; mobile application and all related services (collectively, the &ldquo;Service&rdquo;).</p>
     <p>By downloading, installing, or using Alloc&eacute;, you confirm that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree, do not use the Service.</p>
     <p>We reserve the right to update these Terms at any time. When we make material changes, we will notify you via in-app notice or email. Your continued use of the Service after changes take effect constitutes your acceptance.</p>
-
     <h2>2. Description of Service</h2>
     <p>Alloc&eacute; is a personal budgeting and financial management application that helps users allocate income, track bills, set savings goals, and manage personal finances using a five-bucket system: Bills, Spending, Savings, Sinking Funds, and Credit Card.</p>
     <p>Alloc&eacute; is currently free to use. A Pro tier with additional features (including cloud sync and multi-device access) is planned for a future release. No features currently available for free will be moved behind a paywall without adequate notice.</p>
     <p><strong>Alloc&eacute; is a personal finance tool only. It does not provide financial advice, investment advice, tax advice, or any other professional advisory services.</strong> All features are for informational and organizational purposes only. Consult a qualified professional for advice specific to your situation.</p>
-
     <h2>3. Eligibility &mdash; Minimum Age: 16</h2>
     <div class="legal-note" style="border-left-color:#f87171; background:rgba(248,113,113,0.07);">
       <strong style="color:#f87171;">You must be at least 16 years old to use Alloc&eacute;.</strong> By using the Service, you represent and warrant that you are 16 years of age or older. We do not knowingly permit anyone under 16 to use our Service.
@@ -262,7 +231,6 @@
     <p>If we learn or have reasonable cause to believe that a user is under 16, we will suspend or terminate that account and delete any associated personal data promptly. If you are a parent or guardian and believe your child under 16 has created an account, contact us immediately at <a href="mailto:legal@alloce.app" style="color:var(--green);">legal@alloce.app</a>.</p>
     <h3>Legal Capacity</h3>
     <p>By creating an account, you also represent that you have the legal capacity to enter into a binding agreement under the laws of your jurisdiction.</p>
-
     <h2>4. Account Registration</h2>
     <h3>4.1 Registration</h3>
     <p>You must provide an accurate email address and create a password to use the Service. You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account.</p>
@@ -270,7 +238,6 @@
     <p>Notify us immediately at <a href="mailto:support@alloce.app" style="color:var(--green);">support@alloce.app</a> if you suspect unauthorized access to your account.</p>
     <h3>4.3 Account Deletion</h3>
     <p>You may delete your account at any time in the App settings. Deletion is permanent and all associated personal data will be purged within 90 days.</p>
-
     <h2>5. Acceptable Use</h2>
     <p>You agree to use the Service only for lawful personal budgeting purposes and in accordance with these Terms. You agree not to:</p>
     <ul>
@@ -282,44 +249,32 @@
       <li>Use the Service for any commercial purpose without our prior written consent</li>
       <li>Violate any applicable federal, state, or local laws in connection with your use of the Service</li>
     </ul>
-
     <h2>6. Financial Disclaimer</h2>
     <p>Alloc&eacute; is a budgeting tool, not a financial advisor, broker, or investment advisor. Nothing in the App constitutes financial, investment, tax, or legal advice. Budget suggestions and split recommendations are automated calculations based on information you provide &mdash; they are not personalized financial advice.</p>
     <p>Always consult a qualified financial professional for advice specific to your situation.</p>
     <div class="legal-note">If you use the gig worker or freelance income type, the tax estimates shown are approximations only. Self-employment tax rates vary. Consult a tax professional.</div>
-
     <h2>7. Intellectual Property</h2>
     <p>The Alloc&eacute; name, logo, design, code, and all content are the exclusive property of Alloc&eacute; Technologies LLC and are protected by U.S. and international copyright, trademark, and intellectual property laws. Nothing in these Terms grants you any right to use our trademarks, trade names, or branding without prior written permission.</p>
     <p>You retain full ownership of all financial data you enter into the App. By using the Service, you grant us a limited license to store and process your data solely to provide and improve the Service.</p>
-
     <h2>8. Disclaimers &amp; Limitation of Liability</h2>
     <h3>8.1 As-Is Service</h3>
     <p>THE SERVICE IS PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS.</p>
     <h3>8.2 Limitation of Liability</h3>
     <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, ALLOC&Eacute; TECHNOLOGIES LLC AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES &mdash; INCLUDING LOSS OF PROFITS, DATA, OR GOODWILL &mdash; ARISING FROM YOUR USE OF THE SERVICE. IN NO EVENT SHALL OUR TOTAL LIABILITY EXCEED THE GREATER OF: (A) THE AMOUNT YOU PAID US IN THE 12 MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED DOLLARS ($100).</p>
-
     <h2>9. Indemnification</h2>
     <p>You agree to defend, indemnify, and hold harmless Alloc&eacute; Technologies LLC and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, costs, or fees (including reasonable attorneys&rsquo; fees) arising out of your violation of these Terms, your use of the Service in an unauthorized manner, or your violation of any third-party rights.</p>
-
     <h2>10. App Store Terms</h2>
     <p>If you download Alloc&eacute; from the Apple App Store, these Terms are between you and Alloc&eacute; Technologies LLC &mdash; not Apple. Apple has no warranty or support obligations with respect to Alloc&eacute;. The same applies to downloads from the Google Play Store with respect to Google LLC. Your use must also comply with the applicable app store&rsquo;s terms of service.</p>
-
     <h2>11. Termination</h2>
     <p>We may suspend or terminate your access to the Service at any time, with or without notice, for conduct that violates these Terms or is otherwise unlawful. You may stop using the Service at any time. Sections 6, 7, 8, 9, and 12 survive termination.</p>
-
     <h2>12. Governing Law &amp; Dispute Resolution</h2>
     <p>These Terms are governed by the laws of the State of Maryland, without regard to its conflict of laws principles.</p>
     <h3>Informal Resolution</h3>
     <p>Before filing a formal claim, contact us at <a href="mailto:legal@alloce.app" style="color:var(--green);">legal@alloce.app</a> with a written description of the dispute. We will try to resolve it within 30 days.</p>
     <h3>Binding Arbitration</h3>
     <p>If informal resolution fails, disputes shall be resolved by binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules. Arbitration shall take place in Maryland or via telephone/videoconference. <strong>You and Alloc&eacute; each waive the right to a jury trial and the right to participate in a class action.</strong></p>
-
     <h2>13. Entire Agreement</h2>
     <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Alloc&eacute; Technologies LLC regarding your use of the Service and supersede all prior agreements and understandings.</p>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         SECTION 14 — DMCA (NEW — added for copyright compliance)
-    ════════════════════════════════════════════════════════════ -->
     <h2>14. Copyright Policy (DMCA)</h2>
     <p>Alloc&eacute; Technologies LLC respects intellectual property rights and expects users to do the same. If you believe that content available through the Service infringes a copyright you own or control, you may submit a written takedown notice to our designated agent that includes all of the following:</p>
     <ul>
@@ -338,7 +293,6 @@
     <p style="margin-top:20px;">We will respond to valid notices by removing or disabling access to the allegedly infringing content and notifying the affected user where required by law. Users who repeatedly infringe third-party copyrights may have their accounts terminated.</p>
     <h3>Counter-Notices</h3>
     <p>If you believe your content was removed in error, you may submit a counter-notice to <a href="mailto:legal@alloce.app" style="color:var(--green);">legal@alloce.app</a> with the subject line &ldquo;DMCA Counter-Notice.&rdquo; Your counter-notice must include the information required under 17 U.S.C. &sect; 512(g)(3). We will process valid counter-notices in accordance with applicable law.</p>
-
     <h2>15. Contact</h2>
     <p>For questions about these Terms:</p>
     <div class="contact-box">
@@ -349,11 +303,8 @@
       <div class="contact-row"><span class="contact-label">Effective</span><span class="contact-value">May 10, 2026</span></div>
     </div>
   </div>
-</div><!-- end page-terms -->
+</div>
 
-<!-- ══════════════════════════════════════
-     PRIVACY PAGE
-══════════════════════════════════════ -->
 <div class="page" id="page-privacy">
   <div class="legal-page">
     <div class="doc-header">
@@ -361,18 +312,15 @@
       <h1 class="doc-title">Privacy Policy</h1>
       <p class="doc-meta">Alloc&eacute; Technologies LLC &nbsp;&middot;&nbsp; Effective May 17, 2026 &nbsp;&middot;&nbsp; <a onclick="showPage('terms')">Terms of Service &rarr;</a></p>
     </div>
-
     <h2>1. Introduction</h2>
     <p>This Privacy Policy describes how Alloc&eacute; Technologies LLC (&ldquo;Alloc&eacute;,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and protects information when you use the Alloc&eacute; mobile application and related services (the &ldquo;Service&rdquo;). By using Alloc&eacute;, you agree to the data practices described in this policy.</p>
     <p>Our core principle: your financial data belongs to you. We collect only what is necessary to provide the Service and we never sell your personal information.</p>
-
     <h2>2. Who Can Use Alloc&eacute;</h2>
     <div class="legal-note" style="border-left-color:#f87171; background:rgba(248,113,113,0.07);">
       <strong style="color:#f87171;">Alloc&eacute; is strictly for users 16 years of age and older.</strong> We do not knowingly collect, use, or store personal information from anyone under 16. If we become aware a user is under 16, we will immediately suspend the account and delete all associated data. Parents or guardians who believe their child under 16 has registered should contact us at <a href="mailto:legal@alloce.app" style="color:var(--green);">legal@alloce.app</a> immediately.
     </div>
     <h3>Note on COPPA</h3>
     <p>The Children&rsquo;s Online Privacy Protection Act (COPPA) restricts online collection of personal data from children under 13. Because our minimum age is 16 &mdash; which exceeds COPPA&rsquo;s threshold &mdash; we do not collect data from anyone under 13 and have no mechanism to do so. Our age gate goes above and beyond COPPA&rsquo;s requirements.</p>
-
     <h2>3. Information We Collect</h2>
     <h3>3.1 Information You Provide</h3>
     <ul>
@@ -382,7 +330,6 @@
       <li>Support communications: emails or messages you send us</li>
     </ul>
     <div class="legal-note">We never ask for your bank credentials, Social Security Number, or government-issued ID. All financial data you enter is data you type or upload yourself.</div>
-
     <h3>3.2 Information Collected Automatically</h3>
     <ul>
       <li>App usage data: which screens you visit and features you use &mdash; used to improve the product</li>
@@ -390,7 +337,6 @@
       <li>Crash reports: anonymized error logs when the app crashes, to identify and fix bugs</li>
       <li>Log data: IP address (approximate), timestamps, and error logs for security monitoring</li>
     </ul>
-
     <h3>3.3 Information We Do Not Collect</h3>
     <ul>
       <li>We do not access your bank accounts, credit cards, or financial institutions directly</li>
@@ -399,7 +345,6 @@
       <li>We do not track you across other apps or websites</li>
       <li>We do not collect Social Security Numbers or government IDs</li>
     </ul>
-
     <h2>4. How We Use Your Information</h2>
     <ul>
       <li>To provide and maintain the Service, including syncing your budget data across devices</li>
@@ -411,7 +356,6 @@
       <li>To comply with applicable legal obligations</li>
     </ul>
     <div class="legal-note">We do not use your financial data for advertising. We do not share your data with advertising networks. Alloc&eacute; is ad-free and we do not sell your data.</div>
-
     <h2>5. How We Share Your Information</h2>
     <p><strong>We do not sell, rent, or trade your personal information or financial data to third parties.</strong> We may share your information only in these limited circumstances:</p>
     <ul>
@@ -421,12 +365,10 @@
       <li><strong>Business Transfers</strong> &mdash; In connection with a merger or acquisition; we will notify you before your data transfers to a different privacy policy</li>
       <li><strong>With Your Consent</strong> &mdash; In any other circumstance with your explicit prior consent</li>
     </ul>
-
     <h2>6. Data Storage &amp; Security</h2>
     <h3>6.1 Where Your Data Lives</h3>
     <p>Your account and budget data is stored securely in Supabase, our cloud database provider. Supabase is hosted on AWS and maintains SOC 2 Type II compliance. All data is encrypted in transit (TLS/HTTPS) and at rest.</p>
     <p>Row Level Security (RLS) is enforced on all database tables. Your data is technically isolated at the database level &mdash; queries are scoped to your user ID only.</p>
-
     <h3>6.2 Data Retention</h3>
     <ul>
       <li>Active accounts: data retained for the life of your account</li>
@@ -435,14 +377,12 @@
       <li>Anonymized usage analytics: may be retained indefinitely</li>
       <li>Support communications: retained for up to 3 years for recordkeeping</li>
     </ul>
-
     <h3>6.3 Security Practices</h3>
     <ul>
       <li>All API keys and secrets are stored in environment variables, never in the app codebase</li>
       <li>Authentication uses PKCE flow, the most secure method available for mobile apps</li>
       <li>We conduct regular security reviews of our Supabase RLS policies</li>
     </ul>
-
     <h2>7. Third-Party Services</h2>
     <ul>
       <li>Supabase &mdash; cloud database, authentication, and backend infrastructure</li>
@@ -450,7 +390,6 @@
       <li>RevenueCat (planned) &mdash; subscription management when Pro tier launches</li>
     </ul>
     <div class="legal-note">Future integrations such as Plaid (brokerage connection) will be opt-in only and clearly disclosed before they are enabled.</div>
-
     <h2>8. Your Rights &amp; Choices</h2>
     <h3>8.1 Access &amp; Portability</h3>
     <p>You may request a copy of the personal data we hold about you at any time by emailing <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a>.</p>
@@ -462,7 +401,6 @@
     <p>If you receive marketing emails from us, you may opt out at any time by clicking the unsubscribe link in any email or by emailing <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a>. You will still receive transactional messages about your account. All marketing emails include our company name, a valid reply-to address, and a physical mailing address as required by the CAN-SPAM Act.</p>
     <h3>8.5 Push Notifications</h3>
     <p>You may disable push notifications at any time through your device settings (iOS: Settings &rarr; Notifications &rarr; Alloc&eacute;; Android: Settings &rarr; Apps &rarr; Alloc&eacute; &rarr; Notifications) or within the app. This will not affect core app functionality.</p>
-
     <h2>9. California Residents (CCPA / CPRA)</h2>
     <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA), including:</p>
     <ul>
@@ -474,18 +412,12 @@
       <li>Right to non-discrimination for exercising these rights</li>
     </ul>
     <p>To exercise any of these rights, contact us at <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a>. We will verify your identity and respond within 45 days as required by law. We do not knowingly sell the personal information of anyone under 16 and do not permit users under 16 to use the Service.</p>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         SECTION 10 — GDPR (NEW — added for EU user awareness)
-    ════════════════════════════════════════════════════════════ -->
     <h2>10. European Users (GDPR)</h2>
     <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, the General Data Protection Regulation (GDPR) and applicable local laws may grant you additional rights regarding your personal data, including the right to access, rectify, erase, restrict processing, object to processing, and data portability.</p>
     <p>Alloc&eacute; is primarily designed for U.S. users. We do not actively target or market the Service to residents of the EEA. If you are located in the EEA and choose to use the Service, you do so at your own initiative. To exercise any GDPR rights, contact us at <a href="mailto:privacy@alloce.app" style="color:var(--green);">privacy@alloce.app</a>. We will respond within 30 days.</p>
     <p>Our legal basis for processing your data is performance of a contract (providing you the Service you requested) and, where applicable, our legitimate interests in operating and improving a secure, reliable application.</p>
-
     <h2>11. Changes to This Policy</h2>
     <p>We may update this Privacy Policy periodically as the Service evolves or as laws change. When we make material changes, we will update the effective date above, notify you via in-app notification, and for significant changes, send an email notification. Continued use of the App after changes constitutes acceptance.</p>
-
     <h2>12. Contact</h2>
     <p>For privacy questions, requests, or concerns:</p>
     <div class="contact-box">
@@ -496,9 +428,8 @@
       <div class="contact-row"><span class="contact-label">Effective</span><span class="contact-value">May 17, 2026</span></div>
     </div>
   </div>
-</div><!-- end page-privacy -->
+</div>
 
-<!-- ── SHARED FOOTER ── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo" onclick="showPage('home')">Alloc&eacute;</div>
@@ -520,11 +451,9 @@
 </footer>
 
 <script>
-  // ── Supabase config ──────────────────────────────────────────────────────
   const SUPABASE_URL = 'https://vikmfjzbqvkymtaffhvk.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_DvIr-7heAhCxl4cDlAavhw_EG1_O3Wf';
 
-  // ── Page routing ─────────────────────────────────────────────────────────
   function showPage(name, scrollTo) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
@@ -554,7 +483,6 @@
     else showPage('home');
   });
 
-  // ── Waitlist signup ──────────────────────────────────────────────────────
   async function signup() {
     const btn   = document.getElementById('signupBtn');
     const field = document.getElementById('emailField');
@@ -584,14 +512,12 @@
       });
 
       if (res.status === 409) {
-        // Already on the list
         btn.disabled = false;
         btn.textContent = 'Notify me';
         input.value = '';
         input.placeholder = "You're already on the list!";
         field.style.borderColor = 'rgba(16,185,129,0.5)';
       } else if (res.ok) {
-        // New signup — show success and trigger emails
         field.style.display = 'none';
         msg.style.display = 'block';
         fetch('https://vikmfjzbqvkymtaffhvk.supabase.co/functions/v1/waitlist-welcome', {
